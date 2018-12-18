@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.jsproducerremittance.dao.RemittancetransactionDao">
+
+    <resultMap type="com.cloud.jsproducerremittance.entity.Remittancetransaction" id="RemittancetransactionMap">
+        <result property="remittancetransactionId" column="remittancetransaction_id" jdbcType="INTEGER"/>
+        <result property="remittancetransactionName" column="remittancetransaction_name" jdbcType="VARCHAR"/>
+        <result property="remittancetransactionCardnumber" column="remittancetransaction_cardnumber" jdbcType="VARCHAR"/>
+        <result property="remittancetransactionBlank" column="remittancetransaction_blank" jdbcType="INTEGER"/>
+        <result property="remittancetransactionPrice" column="remittancetransaction_price" jdbcType="VARCHAR"/>
+        <result property="remittancetransactionTime" column="remittancetransaction_time" jdbcType="INTEGER"/>
+        <result property="remittancetransactionCurrent" column="remittancetransaction_current" jdbcType="VARCHAR"/>
+        <result property="remittancetransactionNumber" column="remittancetransaction_number" jdbcType="VARCHAR"/>
+        <result property="remittancetransactionPayuserid" column="remittancetransaction_payuserid" jdbcType="INTEGER"/>
+        <result property="remittancetransactionProcedure" column="remittancetransaction_procedure" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="RemittancetransactionMap">
+        select
+          remittancetransaction_id, remittancetransaction_name, remittancetransaction_cardnumber, remittancetransaction_blank, remittancetransaction_price, remittancetransaction_time, remittancetransaction_current, remittancetransaction_number, remittancetransaction_payuserid, remittancetransaction_procedure
+        from remittancetransaction
+        where remittancetransaction_id = #{remittancetransactionId}
+    </select>
+
+    <!--根据明细ID查询详细信息-->
+    <select id="queryone" resultMap="RemittancetransactionMap">
+        select remittancetransaction_name, remittancetransaction_cardnumber, remittancetransaction_blank, remittancetransaction_price, remittancetransaction_time, remittancetransaction_current, remittancetransaction_number, remittancetransaction_payuserid
+        from remittancetransaction
+        where remittancetransaction_id = #{id}
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="RemittancetransactionMap">
+        select
+          remittancetransaction_id, remittancetransaction_cardnumber, remittancetransaction_blank, remittancetransaction_price, remittancetransaction_time, remittancetransaction_number
+        from remittancetransaction
+        <where>
+            <if test="Cardnumber != null and Cardnumber != ''">
+                and remittancetransaction_cardnumber = #{Cardnumber}
+            </if>
+
+            <if test="Number != null and Number != ''">
+                and remittancetransaction_number = #{Number}
+            </if>
+
+            <if test="onetime != null and onetime != '' and twotime != null and twotime != ''">
+                and remittancetransaction_current between #{onetime} and #{twotime}
+            </if>
+
+        </where>
+
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="remittancetransactionId" useGeneratedKeys="true" parameterType="com.cloud.jsproducerremittance.entity.Remittancetransaction">
+        insert into remittancetransaction(remittancetransaction_name, remittancetransaction_cardnumber, remittancetransaction_blank, remittancetransaction_price, remittancetransaction_time, remittancetransaction_current, remittancetransaction_number, remittancetransaction_payuserid,remittancetransaction_procedure)
+        values (#{remittancetransactionName}, #{remittancetransactionCardnumber}, #{remittancetransactionBlank}, #{remittancetransactionPrice}, #{remittancetransactionTime}, #{remittancetransactionCurrent}, #{remittancetransactionNumber}, #{remittancetransactionPayuserid},#{remittancetransactionProcedure})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js_bank_account.remittancetransaction
+        <set>
+            <if test="remittancetransactionName != null and remittancetransactionName != ''">
+                remittancetransaction_name = #{remittancetransactionName},
+            </if>
+            <if test="remittancetransactionCardnumber != null and remittancetransactionCardnumber != ''">
+                remittancetransaction_cardnumber = #{remittancetransactionCardnumber},
+            </if>
+            <if test="remittancetransactionBlank != null">
+                remittancetransaction_blank = #{remittancetransactionBlank},
+            </if>
+            <if test="remittancetransactionPrice != null and remittancetransactionPrice != ''">
+                remittancetransaction_price = #{remittancetransactionPrice},
+            </if>
+            <if test="remittancetransactionTime != null">
+                remittancetransaction_time = #{remittancetransactionTime},
+            </if>
+            <if test="remittancetransactionCurrent != null and remittancetransactionCurrent != ''">
+                remittancetransaction_current = #{remittancetransactionCurrent},
+            </if>
+            <if test="remittancetransactionNumber != null and remittancetransactionNumber != ''">
+                remittancetransaction_number = #{remittancetransactionNumber},
+            </if>
+            <if test="remittancetransactionPayuserid != null">
+                remittancetransaction_payuserid = #{remittancetransactionPayuserid},
+            </if>
+        </set>
+        where remittancetransaction_id = #{remittancetransactionId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js_bank_account.remittancetransaction where remittancetransaction_id = #{remittancetransactionId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.js_deposit_provider.dao.DepositWithdrawalDao">
+
+    <resultMap type="com.example.js_deposit_provider.entity.DepositWithdrawal" id="DepositWithdrawalMap">
+        <result property="depositWithdrawalid" column="deposit_withdrawalId" jdbcType="INTEGER"/>
+        <result property="depositWithdrawalorderid" column="deposit_withdrawalOrderId" jdbcType="INTEGER"/>
+        <result property="depositWithdrawalintime" column="deposit_withdrawalIntime" jdbcType="TIMESTAMP"/>
+        <result property="depositWithdrawaouttime" column="deposit_withdrawaOuttime" jdbcType="TIMESTAMP"/>
+        <result property="depositWithdrawalmoney" column="deposit_withdrawalMoney" jdbcType="INTEGER"/>
+        <result property="depositWithdrawalstate" column="deposit_withdrawalState" jdbcType="INTEGER"/>
+        <result property="depositWithdrawalUserId" column="deposit_withdrawalUserId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DepositWithdrawalMap">
+        select
+          deposit_withdrawalId, deposit_withdrawalOrderId, deposit_withdrawalIntime, deposit_withdrawaOuttime, deposit_withdrawalMoney, deposit_withdrawalState
+        from js-deposit.deposit_withdrawal
+        where deposit_withdrawalId = #{depositWithdrawalid}
+    </select>
+    <select id="getByUserId" resultMap="DepositWithdrawalMap">
+       select deposit_withdrawalId, deposit_withdrawalOrderId, deposit_withdrawalIntime, deposit_withdrawaOuttime, deposit_withdrawalMoney, deposit_withdrawalState
+       from deposit_withdrawal
+       where deposit_withdrawalUserId = #{userid}
+    </select>
+    <select id="getAll" resultMap="DepositWithdrawalMap">
+        select deposit_withdrawalId,deposit_withdrawalOrderId,deposit_withdrawaOuttime,deposit_withdrawalMoney
+        from deposit_withdrawal
+        where deposit_withdrawalState = 0
+    </select>
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DepositWithdrawalMap">
+        select
+          deposit_withdrawalId, deposit_withdrawalOrderId, deposit_withdrawalIntime, deposit_withdrawaOuttime, deposit_withdrawalMoney, deposit_withdrawalState
+        from js-deposit.deposit_withdrawal
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DepositWithdrawalMap">
+        select
+          deposit_withdrawalId, deposit_withdrawalOrderId, deposit_withdrawalIntime, deposit_withdrawaOuttime, deposit_withdrawalMoney, deposit_withdrawalState
+        from js-deposit.deposit_withdrawal
+        <where>
+            <if test="depositWithdrawalid != null">
+                and deposit_withdrawalId = #{depositWithdrawalid}
+            </if>
+            <if test="depositWithdrawalorderid != null">
+                and deposit_withdrawalOrderId = #{depositWithdrawalorderid}
+            </if>
+            <if test="depositWithdrawalintime != null">
+                and deposit_withdrawalIntime = #{depositWithdrawalintime}
+            </if>
+            <if test="depositWithdrawaouttime != null">
+                and deposit_withdrawaOuttime = #{depositWithdrawaouttime}
+            </if>
+            <if test="depositWithdrawalmoney != null">
+                and deposit_withdrawalMoney = #{depositWithdrawalmoney}
+            </if>
+            <if test="depositWithdrawalstate != null">
+                and deposit_withdrawalState = #{depositWithdrawalstate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="depositWithdrawalid" useGeneratedKeys="true">
+        insert into deposit_withdrawal(deposit_withdrawalOrderId, deposit_withdrawalIntime, deposit_withdrawaOuttime, deposit_withdrawalMoney, deposit_withdrawalState,deposit_withdrawalUserId)
+        values (#{depositWithdrawalorderid}, #{depositWithdrawalintime}, #{depositWithdrawaouttime}, #{depositWithdrawalmoney}, #{depositWithdrawalstate},#{depositWithdrawalUserId})
+    </insert>
+    <update id="updateByID">
+        update deposit_withdrawal
+        set deposit_withdrawalState = #{type}
+        where deposit_withdrawalId = #{id}
+    </update>
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js-deposit.deposit_withdrawal
+        <set>
+            <if test="depositWithdrawalorderid != null">
+                deposit_withdrawalOrderId = #{depositWithdrawalorderid},
+            </if>
+            <if test="depositWithdrawalintime != null">
+                deposit_withdrawalIntime = #{depositWithdrawalintime},
+            </if>
+            <if test="depositWithdrawaouttime != null">
+                deposit_withdrawaOuttime = #{depositWithdrawaouttime},
+            </if>
+            <if test="depositWithdrawalmoney != null">
+                deposit_withdrawalMoney = #{depositWithdrawalmoney},
+            </if>
+            <if test="depositWithdrawalstate != null">
+                deposit_withdrawalState = #{depositWithdrawalstate},
+            </if>
+        </set>
+        where deposit_withdrawalId = #{depositWithdrawalid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from deposit_withdrawal where deposit_withdrawalId = #{depositWithdrawalid}
+    </delete>
+
+</mapper>

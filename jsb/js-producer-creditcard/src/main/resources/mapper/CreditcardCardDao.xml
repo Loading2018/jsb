@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.jsproducercreditcard.dao.CreditcardCardDao">
+
+    <resultMap type="com.example.jsproducercreditcard.entity.CreditcardCard" id="CreditcardCardMap">
+        <result property="cardId" column="card_id" jdbcType="INTEGER"/>
+        <result property="cardNumber" column="card_number" jdbcType="VARCHAR"/>
+        <result property="cardBalance" column="card_balance" jdbcType="VARCHAR"/>
+        <result property="cardState" column="card_state" jdbcType="VARCHAR"/>
+        <result property="cardSign" column="card_sign" jdbcType="VARCHAR"/>
+        <result property="cardDuedate" column="card_duedate" jdbcType="VARCHAR"/>
+        <result property="cardDate" column="card_date" jdbcType="VARCHAR"/>
+        <result property="cardUsablebalanc" column="card_usablebalanc" jdbcType="VARCHAR"/>
+        <result property="cardAlias" column="card_alias" jdbcType="VARCHAR"/>
+        <result property="cardHandledate" column="card_handledate" jdbcType="VARCHAR"/>
+        <result property="cardStartdate" column="card_startdate" jdbcType="VARCHAR"/>
+        <result property="cardLimit" column="card_limit" jdbcType="NUMERIC"/>
+        <result property="cardCurrency" column="card_currency" jdbcType="VARCHAR"/>
+        <result property="cardAa" column="card_aa" jdbcType="VARCHAR"/>
+        <result property="cardBb" column="card_bb" jdbcType="VARCHAR"/>
+        <result property="cardPeson" column="card_peson" jdbcType="INTEGER"/>
+        <result property="cardApplyid" column="card_applyid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CreditcardCardMap">
+        select
+          card_id, card_number, card_balance, card_state, card_sign, card_duedate, card_date, card_usablebalanc, card_alias, card_handledate, card_startdate, card_limit, card_currency, card_aa, card_bb, card_peson, card_applyid
+        from js_creditcard.creditcard_card
+        where card_number = #{cardNumber}
+    </select>
+
+    <!--根据id查询用户卡片-->
+    <select id="liss" resultMap="CreditcardCardMap">
+        select
+          card_id, card_number, card_balance, card_state, card_sign, card_duedate, card_date, card_usablebalanc, card_alias, card_handledate, card_startdate, card_limit, card_currency, card_aa, card_bb, card_peson, card_applyid
+        from js_creditcard.creditcard_card
+        where card_peson = #{cardPeson}
+    </select>
+
+
+    <!--查询单个-->
+    <select id="getAll" resultMap="CreditcardCardMap">
+        select
+          card_id, card_number, card_balance, card_state, card_sign, card_duedate, card_date, card_usablebalanc, card_alias, card_handledate, card_startdate, card_limit, card_currency, card_aa, card_bb, card_peson, card_applyid
+        from js_creditcard.creditcard_card
+        where card_number = #{cardNumber}
+    </select>
+
+
+    <!--根据id查询单条消息-->
+    <select id="refer" resultMap="CreditcardCardMap">
+        select
+          card_id, card_number, card_balance, card_state, card_sign, card_duedate, card_date, card_usablebalanc, card_alias, card_handledate, card_startdate, card_limit, card_currency, card_aa, card_bb, card_peson, card_applyid
+        from js_creditcard.creditcard_card
+        where card_id = #{cardId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CreditcardCardMap">
+        select
+          card_id, card_number, card_balance, card_state, card_sign, card_duedate, card_date, card_usablebalanc, card_alias, card_handledate, card_startdate, card_limit, card_currency, card_aa, card_bb, card_peson, card_applyid
+        from js_creditcard.creditcard_card
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CreditcardCardMap">
+        select
+          card_id, card_number, card_balance, card_state, card_sign, card_duedate, card_date, card_usablebalanc, card_alias, card_handledate, card_startdate, card_limit, card_currency, card_aa, card_bb, card_peson, card_applyid
+        from js_creditcard.creditcard_card
+        <where>
+            <if test="cardId != null">
+                and card_id = #{cardId}
+            </if>
+            <if test="cardNumber != null and cardNumber != ''">
+                and card_number = #{cardNumber}
+            </if>
+            <if test="cardBalance != null and cardBalance != ''">
+                and card_balance = #{cardBalance}
+            </if>
+            <if test="cardState != null and cardState != ''">
+                and card_state = #{cardState}
+            </if>
+            <if test="cardSign != null and cardSign != ''">
+                and card_sign = #{cardSign}
+            </if>
+            <if test="cardDuedate != null and cardDuedate != ''">
+                and card_duedate = #{cardDuedate}
+            </if>
+            <if test="cardDate != null and cardDate != ''">
+                and card_date = #{cardDate}
+            </if>
+            <if test="cardUsablebalanc != null and cardUsablebalanc != ''">
+                and card_usablebalanc = #{cardUsablebalanc}
+            </if>
+            <if test="cardAlias != null and cardAlias != ''">
+                and card_alias = #{cardAlias}
+            </if>
+            <if test="cardHandledate != null and cardHandledate != ''">
+                and card_handledate = #{cardHandledate}
+            </if>
+            <if test="cardStartdate != null and cardStartdate != ''">
+                and card_startdate = #{cardStartdate}
+            </if>
+            <if test="cardLimit != null">
+                and card_limit = #{cardLimit}
+            </if>
+            <if test="cardCurrency != null and cardCurrency != ''">
+                and card_currency = #{cardCurrency}
+            </if>
+            <if test="cardAa != null and cardAa != ''">
+                and card_aa = #{cardAa}
+            </if>
+            <if test="cardBb != null and cardBb != ''">
+                and card_bb = #{cardBb}
+            </if>
+            <if test="cardPeson != null">
+                and card_peson = #{cardPeson}
+            </if>
+            <if test="cardApplyid != null">
+                and card_applyid = #{cardApplyid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="cardId" useGeneratedKeys="true">
+        insert into js_creditcard.creditcard_card(card_number, card_balance, card_state, card_sign, card_duedate, card_date, card_usablebalanc, card_alias, card_handledate, card_startdate, card_limit, card_currency, card_aa, card_bb, card_peson, card_applyid)
+        values (#{cardNumber}, #{cardBalance}, #{cardState}, #{cardSign}, #{cardDuedate}, #{cardDate}, #{cardUsablebalanc}, #{cardAlias}, #{cardHandledate}, #{cardStartdate}, #{cardLimit}, #{cardCurrency}, #{cardAa}, #{cardBb}, #{cardPeson}, #{cardApplyid})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js_creditcard.creditcard_card
+        <set>
+            <if test="cardNumber != null and cardNumber != ''">
+                card_number = #{cardNumber},
+            </if>
+            <if test="cardBalance != null and cardBalance != ''">
+                card_balance = #{cardBalance},
+            </if>
+            <if test="cardState != null and cardState != ''">
+                card_state = #{cardState},
+            </if>
+            <if test="cardSign != null and cardSign != ''">
+                card_sign = #{cardSign},
+            </if>
+            <if test="cardDuedate != null and cardDuedate != ''">
+                card_duedate = #{cardDuedate},
+            </if>
+            <if test="cardDate != null and cardDate != ''">
+                card_date = #{cardDate},
+            </if>
+            <if test="cardUsablebalanc != null and cardUsablebalanc != ''">
+                card_usablebalanc = #{cardUsablebalanc},
+            </if>
+            <if test="cardAlias != null and cardAlias != ''">
+                card_alias = #{cardAlias},
+            </if>
+            <if test="cardHandledate != null and cardHandledate != ''">
+                card_handledate = #{cardHandledate},
+            </if>
+            <if test="cardStartdate != null and cardStartdate != ''">
+                card_startdate = #{cardStartdate},
+            </if>
+            <if test="cardLimit != null">
+                card_limit = #{cardLimit},
+            </if>
+            <if test="cardCurrency != null and cardCurrency != ''">
+                card_currency = #{cardCurrency},
+            </if>
+            <if test="cardAa != null and cardAa != ''">
+                card_aa = #{cardAa},
+            </if>
+            <if test="cardBb != null and cardBb != ''">
+                card_bb = #{cardBb},
+            </if>
+            <if test="cardPeson != null">
+                card_peson = #{cardPeson},
+            </if>
+            <if test="cardApplyid != null">
+                card_applyid = #{cardApplyid},
+            </if>
+        </set>
+        where card_id = #{cardId}
+    </update>
+
+    <!--通过主键修改数据-->
+    <update id="updatenumber">
+        update js_creditcard.creditcard_card
+        <set>
+            <if test="cardId != null and cardId != ''">
+                card_id = #{cardId},
+            </if>
+            <if test="cardBalance != null and cardBalance != ''">
+                card_balance = #{cardBalance},
+            </if>
+            <if test="cardState != null and cardState != ''">
+                card_state = #{cardState},
+            </if>
+            <if test="cardSign != null and cardSign != ''">
+                card_sign = #{cardSign},
+            </if>
+            <if test="cardDuedate != null and cardDuedate != ''">
+                card_duedate = #{cardDuedate},
+            </if>
+            <if test="cardDate != null and cardDate != ''">
+                card_date = #{cardDate},
+            </if>
+            <if test="cardUsablebalanc != null and cardUsablebalanc != ''">
+                card_usablebalanc = #{cardUsablebalanc},
+            </if>
+            <if test="cardAlias != null and cardAlias != ''">
+                card_alias = #{cardAlias},
+            </if>
+            <if test="cardHandledate != null and cardHandledate != ''">
+                card_handledate = #{cardHandledate},
+            </if>
+            <if test="cardStartdate != null and cardStartdate != ''">
+                card_startdate = #{cardStartdate},
+            </if>
+            <if test="cardLimit != null">
+                card_limit = #{cardLimit},
+            </if>
+            <if test="cardCurrency != null and cardCurrency != ''">
+                card_currency = #{cardCurrency},
+            </if>
+            <if test="cardAa != null and cardAa != ''">
+                card_aa = #{cardAa},
+            </if>
+            <if test="cardBb != null and cardBb != ''">
+                card_bb = #{cardBb},
+            </if>
+            <if test="cardBb > 0">
+                card_bb = 0.0
+            </if>
+            <if test="cardPeson != null">
+                card_peson = #{cardPeson},
+            </if>
+            <if test="cardApplyid != null">
+                card_applyid = #{cardApplyid},
+            </if>
+        </set>
+        where card_number = #{cardNumber}
+    </update>
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js_creditcard.creditcard_card where card_number = #{cardNumber}
+    </delete>
+
+</mapper>

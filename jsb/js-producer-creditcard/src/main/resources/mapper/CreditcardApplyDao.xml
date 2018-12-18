@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.jsproducercreditcard.dao.CreditcardApplyDao">
+
+    <resultMap type="com.example.jsproducercreditcard.entity.CreditcardApply" id="CreditcardApplyMap">
+        <result property="applyId" column="apply_id" jdbcType="INTEGER"/>
+        <result property="applyNumber" column="apply_number" jdbcType="VARCHAR"/>
+        <result property="applyType" column="apply_type" jdbcType="VARCHAR"/>
+        <result property="applyDate" column="apply_date" jdbcType="VARCHAR"/>
+        <result property="applyArea" column="apply_area" jdbcType="VARCHAR"/>
+        <result property="applyDitch" column="apply_ditch" jdbcType="VARCHAR"/>
+        <result property="applyCards" column="apply_cards" jdbcType="VARCHAR"/>
+        <result property="applyPlan" column="apply_plan" jdbcType="VARCHAR"/>
+        <result property="applyDateupdate" column="apply_dateupdate" jdbcType="VARCHAR"/>
+        <result property="applyName" column="apply_name" jdbcType="VARCHAR"/>
+        <result property="applyCard" column="apply_card" jdbcType="VARCHAR"/>
+        <result property="appluType" column="applu_type" jdbcType="VARCHAR"/>
+        <result property="applyPhone" column="apply_phone" jdbcType="VARCHAR"/>
+        <result property="applyCode" column="apply_code" jdbcType="INTEGER"/>
+        <result property="applyCardtype" column="apply_cardtype" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CreditcardApplyMap">
+        select
+          apply_id, apply_number, apply_type, apply_date, apply_area, apply_ditch, apply_cards, apply_plan, apply_dateupdate, apply_name, apply_card, applu_type, apply_phone, apply_code, apply_cardtype
+        from js_creditcard.creditcard_apply
+        where apply_card = #{applyCard}
+    </select>
+
+    <!--查询单个-->
+    <select id="applyid" resultMap="CreditcardApplyMap">
+        select
+          apply_id, apply_number, apply_type, apply_date, apply_area, apply_ditch, apply_cards, apply_plan, apply_dateupdate, apply_name, apply_card, applu_type, apply_phone, apply_code, apply_cardtype
+        from js_creditcard.creditcard_apply
+        where apply_id = #{applyId}
+    </select>
+
+    <!--条件查询单个-->
+    <select id="getss" resultMap="CreditcardApplyMap">
+        select
+          apply_id, apply_number, apply_type, apply_date, apply_area, apply_ditch, apply_cards, apply_plan, apply_dateupdate, apply_name, apply_card, applu_type, apply_phone, apply_code, apply_cardtype
+        from js_creditcard.creditcard_apply
+        where apply_name = #{applyName} and apply_card = #{applyCard}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CreditcardApplyMap">
+        select
+          apply_id, apply_number, apply_type, apply_date, apply_area, apply_ditch, apply_cards, apply_plan, apply_dateupdate, apply_name, apply_card, applu_type, apply_phone, apply_code, apply_cardtype
+        from js_creditcard.creditcard_apply
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CreditcardApplyMap">
+        select
+          apply_id, apply_number, apply_type, apply_date, apply_area, apply_ditch, apply_cards, apply_plan, apply_dateupdate, apply_name, apply_card, applu_type, apply_phone, apply_code, apply_cardtype
+        from js_creditcard.creditcard_apply
+        <where>
+            <if test="applyId != null">
+                and apply_id = #{applyId}
+            </if>
+            <if test="applyNumber != null and applyNumber != ''">
+                and apply_number = #{applyNumber}
+            </if>
+            <if test="applyType != null and applyType != ''">
+                and apply_type = #{applyType}
+            </if>
+            <if test="applyDate != null and applyDate != ''">
+                and apply_date = #{applyDate}
+            </if>
+            <if test="applyArea != null and applyArea != ''">
+                and apply_area = #{applyArea}
+            </if>
+            <if test="applyDitch != null and applyDitch != ''">
+                and apply_ditch = #{applyDitch}
+            </if>
+            <if test="applyCards != null and applyCards != ''">
+                and apply_cards = #{applyCards}
+            </if>
+            <if test="applyPlan != null and applyPlan != ''">
+                and apply_plan = #{applyPlan}
+            </if>
+            <if test="applyDateupdate != null and applyDateupdate != ''">
+                and apply_dateupdate = #{applyDateupdate}
+            </if>
+            <if test="applyName != null and applyName != ''">
+                and apply_name = #{applyName}
+            </if>
+            <if test="applyCard != null and applyCard != ''">
+                and apply_card = #{applyCard}
+            </if>
+            <if test="appluType != null and appluType != ''">
+                and applu_type = #{appluType}
+            </if>
+            <if test="applyPhone != null and applyPhone != ''">
+                and apply_phone = #{applyPhone}
+            </if>
+            <if test="applyCode != null">
+                and apply_code = #{applyCode}
+            </if>
+            <if test="applyCardtype != null and applyCardtype != ''">
+                and apply_cardtype = #{applyCardtype}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="applyId" useGeneratedKeys="true">
+        insert into js_creditcard.creditcard_apply(apply_number, apply_type, apply_date, apply_area, apply_ditch, apply_cards, apply_plan, apply_dateupdate, apply_name, apply_card, applu_type, apply_phone, apply_code, apply_cardtype)
+        values (#{applyNumber}, #{applyType}, #{applyDate}, #{applyArea}, #{applyDitch}, #{applyCards}, #{applyPlan}, #{applyDateupdate}, #{applyName}, #{applyCard}, #{appluType}, #{applyPhone}, #{applyCode}, #{applyCardtype})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js_creditcard.creditcard_apply
+        <set>
+            <if test="applyNumber != null and applyNumber != ''">
+                apply_number = #{applyNumber},
+            </if>
+            <if test="applyType != null and applyType != ''">
+                apply_type = #{applyType},
+            </if>
+            <if test="applyDate != null and applyDate != ''">
+                apply_date = #{applyDate},
+            </if>
+            <if test="applyArea != null and applyArea != ''">
+                apply_area = #{applyArea},
+            </if>
+            <if test="applyDitch != null and applyDitch != ''">
+                apply_ditch = #{applyDitch},
+            </if>
+            <if test="applyCards != null and applyCards != ''">
+                apply_cards = #{applyCards},
+            </if>
+            <if test="applyPlan != null and applyPlan != ''">
+                apply_plan = #{applyPlan},
+            </if>
+            <if test="applyDateupdate != null and applyDateupdate != ''">
+                apply_dateupdate = #{applyDateupdate},
+            </if>
+            <if test="applyName != null and applyName != ''">
+                apply_name = #{applyName},
+            </if>
+            <if test="applyCard != null and applyCard != ''">
+                apply_card = #{applyCard},
+            </if>
+            <if test="appluType != null and appluType != ''">
+                applu_type = #{appluType},
+            </if>
+            <if test="applyPhone != null and applyPhone != ''">
+                apply_phone = #{applyPhone},
+            </if>
+            <if test="applyCode != null">
+                apply_code = #{applyCode},
+            </if>
+            <if test="applyCardtype != null and applyCardtype != ''">
+                apply_cardtype = #{applyCardtype},
+            </if>
+        </set>
+        where apply_id = #{applyId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js_creditcard.creditcard_apply where apply_id = #{applyId}
+    </delete>
+
+</mapper>

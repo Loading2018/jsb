@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.jsproduceraccount.dao.DetailenquiryDao">
+
+    <resultMap type="com.cloud.jsproduceraccount.entity.Detailenquiry" id="DetailenquiryMap">
+        <result property="detailenquiryId" column="detailenquiry_id" jdbcType="INTEGER"/>
+        <result property="detailenquiryNumber" column="detailenquiry_number" jdbcType="VARCHAR"/>
+        <result property="detailenquiryData" column="detailenquiry_data" jdbcType="VARCHAR"/>
+        <result property="detailenquiryPlace" column="detailenquiry_place" jdbcType="VARCHAR"/>
+        <result property="detailenquiryAbstract" column="detailenquiry_abstract" jdbcType="VARCHAR"/>
+        <result property="detailenquiryCountries" column="detailenquiry_countries" jdbcType="VARCHAR"/>
+        <result property="detailenquiryOtherinformation" column="detailenquiry_otherinformation" jdbcType="VARCHAR"/>
+        <result property="detailenquiryPaper" column="detailenquiry_paper" jdbcType="VARCHAR"/>
+        <result property="detailenquiryFundflow" column="detailenquiry_fundflow" jdbcType="INTEGER"/>
+        <result property="detailenquiryBalance" column="detailenquiry_balance" jdbcType="VARCHAR"/>
+        <result property="detailenquiryTransactioncurrency" column="detailenquiry_transactioncurrency" jdbcType="INTEGER"/>
+        <result property="detailenquiryMoney" column="detailenquiry_money" jdbcType="OTHER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DetailenquiryMap">
+        select
+          detailenquiry_id, detailenquiry_number, detailenquiry_data, detailenquiry_place, detailenquiry_abstract, detailenquiry_countries, detailenquiry_otherinformation, detailenquiry_paper, detailenquiry_fundflow, detailenquiry_balance, detailenquiry_transactioncurrency, detailenquiry_money
+        from detailenquiry
+        where detailenquiry_id = #{detailenquiryId}
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DetailenquiryMap">
+        select
+          detailenquiry_id, detailenquiry_data, detailenquiry_abstract, detailenquiry_otherinformation,detailenquiry_fundflow, detailenquiry_balance, detailenquiry_transactioncurrency, detailenquiry_money
+        from detailenquiry
+        <where>
+
+            <if test="number != null and number != ''">
+                and detailenquiry_number = #{number}
+            </if>
+
+            <if test="onetime != null and onetime != '' and  twotime != null and twotime != ''">
+                and detailenquiry_data between #{onetime} and #{twotime}
+            </if>
+
+            <if test="Fundflow != null">
+                and detailenquiry_fundflow = #{Fundflow}
+            </if>
+
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="detailenquiryId" useGeneratedKeys="true">
+        insert into detailenquiry(detailenquiry_number, detailenquiry_data, detailenquiry_place, detailenquiry_abstract, detailenquiry_countries, detailenquiry_otherinformation, detailenquiry_paper, detailenquiry_fundflow, detailenquiry_balance, detailenquiry_transactioncurrency, detailenquiry_money)
+        values (#{detailenquiryNumber}, #{detailenquiryData}, #{detailenquiryPlace}, #{detailenquiryAbstract}, #{detailenquiryCountries}, #{detailenquiryOtherinformation}, #{detailenquiryPaper}, #{detailenquiryFundflow}, #{detailenquiryBalance}, #{detailenquiryTransactioncurrency}, #{detailenquiryMoney})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js_bank_account.detailenquiry
+        <set>
+            <if test="detailenquiryNumber != null and detailenquiryNumber != ''">
+                detailenquiry_number = #{detailenquiryNumber},
+            </if>
+            <if test="detailenquiryData != null and detailenquiryData != ''">
+                detailenquiry_data = #{detailenquiryData},
+            </if>
+            <if test="detailenquiryPlace != null and detailenquiryPlace != ''">
+                detailenquiry_place = #{detailenquiryPlace},
+            </if>
+            <if test="detailenquiryAbstract != null and detailenquiryAbstract != ''">
+                detailenquiry_abstract = #{detailenquiryAbstract},
+            </if>
+            <if test="detailenquiryCountries != null and detailenquiryCountries != ''">
+                detailenquiry_countries = #{detailenquiryCountries},
+            </if>
+            <if test="detailenquiryOtherinformation != null and detailenquiryOtherinformation != ''">
+                detailenquiry_otherinformation = #{detailenquiryOtherinformation},
+            </if>
+            <if test="detailenquiryPaper != null and detailenquiryPaper != ''">
+                detailenquiry_paper = #{detailenquiryPaper},
+            </if>
+            <if test="detailenquiryFundflow != null">
+                detailenquiry_fundflow = #{detailenquiryFundflow},
+            </if>
+            <if test="detailenquiryBalance != null and detailenquiryBalance != ''">
+                detailenquiry_balance = #{detailenquiryBalance},
+            </if>
+            <if test="detailenquiryTransactioncurrency != null">
+                detailenquiry_transactioncurrency = #{detailenquiryTransactioncurrency},
+            </if>
+            <if test="detailenquiryMoney != null">
+                detailenquiry_money = #{detailenquiryMoney},
+            </if>
+        </set>
+        where detailenquiry_id = #{detailenquiryId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js_bank_account.detailenquiry where detailenquiry_id = #{detailenquiryId}
+    </delete>
+
+</mapper>

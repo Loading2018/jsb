@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.jsproducerloans.dao.BranchDao">
+
+    <resultMap type="com.example.jsproducerloans.entity.Branch" id="BranchMap">
+        <result property="branchId" column="branch_id" jdbcType="INTEGER"/>
+        <result property="branchName" column="branch_name" jdbcType="VARCHAR"/>
+        <result property="branchSite" column="branch_site" jdbcType="VARCHAR"/>
+        <result property="branchData" column="branch_data" jdbcType="VARCHAR"/>
+        <result property="branchLongitude" column="branch_longitude" jdbcType="VARCHAR"/>
+        <result property="branchDimensionality" column="branch_dimensionality" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BranchMap">
+        select
+          branch_id, branch_name, branch_site, branch_data, branch_longitude, branch_dimensionality
+        from js-deposit.branch
+        where branch_id = #{branchId}
+    </select>
+    <select id="getAll" resultMap="BranchMap">
+        select branch_id, branch_name
+        from  branch
+    </select>
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BranchMap">
+        select
+          branch_id, branch_name, branch_site, branch_data, branch_longitude, branch_dimensionality
+        from js-deposit.branch
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BranchMap">
+        select
+          branch_id, branch_name, branch_site, branch_data, branch_longitude, branch_dimensionality
+        from js-deposit.branch
+        <where>
+            <if test="branchId != null">
+                and branch_id = #{branchId}
+            </if>
+            <if test="branchName != null and branchName != ''">
+                and branch_name = #{branchName}
+            </if>
+            <if test="branchSite != null and branchSite != ''">
+                and branch_site = #{branchSite}
+            </if>
+            <if test="branchData != null and branchData != ''">
+                and branch_data = #{branchData}
+            </if>
+            <if test="branchLongitude != null and branchLongitude != ''">
+                and branch_longitude = #{branchLongitude}
+            </if>
+            <if test="branchDimensionality != null and branchDimensionality != ''">
+                and branch_dimensionality = #{branchDimensionality}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="branchId" useGeneratedKeys="true">
+        insert into js-deposit.branch(branch_name, branch_site, branch_data, branch_longitude, branch_dimensionality)
+        values (#{branchName}, #{branchSite}, #{branchData}, #{branchLongitude}, #{branchDimensionality})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js-deposit.branch
+        <set>
+            <if test="branchName != null and branchName != ''">
+                branch_name = #{branchName},
+            </if>
+            <if test="branchSite != null and branchSite != ''">
+                branch_site = #{branchSite},
+            </if>
+            <if test="branchData != null and branchData != ''">
+                branch_data = #{branchData},
+            </if>
+            <if test="branchLongitude != null and branchLongitude != ''">
+                branch_longitude = #{branchLongitude},
+            </if>
+            <if test="branchDimensionality != null and branchDimensionality != ''">
+                branch_dimensionality = #{branchDimensionality},
+            </if>
+        </set>
+        where branch_id = #{branchId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js-deposit.branch where branch_id = #{branchId}
+    </delete>
+
+</mapper>

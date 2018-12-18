@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.jsproducerloans.dao.LoansIndentDao">
+
+    <resultMap type="com.example.jsproducerloans.entity.LoansIndent" id="LoansIndentMap">
+        <result property="loansIndentid" column="loans_indentId" jdbcType="INTEGER"/>
+        <result property="loansUserid" column="loans_userId" jdbcType="INTEGER"/>
+        <result property="loansIndentnumber" column="loans_indentNumber" jdbcType="VARCHAR"/>
+        <result property="loansMoney" column="loans_Money" jdbcType="DOUBLE"/>
+        <result property="loansLong" column="loans_long" jdbcType="INTEGER"/>
+        <result property="loansRefund" column="loans_refund" jdbcType="INTEGER"/>
+        <result property="loansState" column="loans_state" jdbcType="INTEGER"/>
+        <result property="loansContract" column="loans_contract" jdbcType="VARCHAR"/>
+        <result property="loansType" column="loans_type" jdbcType="INTEGER"/>
+        <result property="loanscard" column="loans_card" jdbcType="VARCHAR"/>
+        <result property="loanslixi" column="loans_lixi" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="LoansIndentMap">
+        select
+          loans_indentId, loans_userId, loans_indentNumber, loans_Money, loans_long, loans_refund, loans_state, loans_contract, loans_type, loans_card, loans_lixi
+        from loans_indent
+        where loans_indentId = #{loansIndentid}
+    </select>
+    <select id="getAllUserId" resultMap="LoansIndentMap">
+        select loans_indentId,loans_indentNumber,loans_Money,loans_long,loans_refund,loans_state,loans_contract
+        from loans_indent
+        where loans_userId = #{userid}
+        order by loans_indentId DESC
+    </select>
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="LoansIndentMap">
+        select
+          loans_indentId, loans_userId, loans_indentNumber, loans_Money, loans_long, loans_refund, loans_state, loans_contract, loans_type, loans_card, loans_lixi
+        from js-deposit.loans_indent
+        limit #{offset}, #{limit}
+    </select>
+    <select id="getcardByid" resultType="String">
+        select loans_card
+        from loans_indent
+        where  loans_indentId = #{informid}
+    </select>
+    <select id="selLixi" resultType="Double">
+        select loans_lixi
+        from loans_indent
+        where loans_indentId = #{informid}
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="LoansIndentMap">
+        select
+          loans_indentId, loans_userId, loans_indentNumber, loans_Money, loans_long, loans_refund, loans_state, loans_contract, loans_type, loans_card, loans_lixi
+        from js-deposit.loans_indent
+        <where>
+            <if test="loansIndentid != null">
+                and loans_indentId = #{loansIndentid}
+            </if>
+            <if test="loansUserid != null">
+                and loans_userId = #{loansUserid}
+            </if>
+            <if test="loansIndentnumber != null and loansIndentnumber != ''">
+                and loans_indentNumber = #{loansIndentnumber}
+            </if>
+            <if test="loansMoney != null and loansMoney != ''">
+                and loans_Money = #{loansMoney}
+            </if>
+            <if test="loansLong != null and loansLong != ''">
+                and loans_long = #{loansLong}
+            </if>
+            <if test="loansRefund != null">
+                and loans_refund = #{loansRefund}
+            </if>
+            <if test="loansState != null">
+                and loans_state = #{loansState}
+            </if>
+            <if test="loansContract != null and loansContract != ''">
+                and loans_contract = #{loansContract}
+            </if>
+            <if test="loansType != null">
+                and loans_type = #{loansType}
+            </if>
+            <if test="loanscard != null and loanscard != ''">
+                and loans_card = #{loanscard}
+            </if>
+            <if test="loanslixi != null and loanslixi != ''">
+                and loans_lixi = #{loanslixi}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="loansIndentid" useGeneratedKeys="true">
+        insert into loans_indent(loans_userId, loans_indentNumber, loans_Money, loans_long, loans_refund, loans_state, loans_contract, loans_type,loans_card,loans_lixi)
+        values (#{loansUserid}, #{loansIndentnumber}, #{loansMoney}, #{loansLong}, #{loansRefund}, #{loansState}, #{loansContract}, #{loansType},#{loanscard},#{loanslixi})
+    </insert>
+    <update id="updatestate1">
+        update loans_indent set loans_state = 2
+        where loans_indentId = #{informid}
+    </update>
+    <update id="updatestate">
+        update loans_indent set loans_state = 1
+        where loans_indentId = #{informid}
+    </update>
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js-deposit.loans_indent
+        <set>
+            <if test="loansUserid != null">
+                loans_userId = #{loansUserid},
+            </if>
+            <if test="loansIndentnumber != null and loansIndentnumber != ''">
+                loans_indentNumber = #{loansIndentnumber},
+            </if>
+            <if test="loansMoney != null and loansMoney != ''">
+                loans_Money = #{loansMoney},
+            </if>
+            <if test="loansLong != null and loansLong != ''">
+                loans_long = #{loansLong},
+            </if>
+            <if test="loansRefund != null">
+                loans_refund = #{loansRefund},
+            </if>
+            <if test="loansState != null">
+                loans_state = #{loansState},
+            </if>
+            <if test="loansContract != null and loansContract != ''">
+                loans_contract = #{loansContract},
+            </if>
+            <if test="loansType != null">
+                loans_type = #{loansType},
+            </if>
+            <if test="loanscard != null and loanscard != ''">
+                loans_card = #{loanscard},
+            </if>
+            <if test="loanslixi != null and loanslixi != ''">
+                loans_lixi = #{loanslixi},
+            </if>
+        </set>
+        where loans_indentId = #{loansIndentid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js-deposit.loans_indent where loans_indentId = #{loansIndentid}
+    </delete>
+
+</mapper>

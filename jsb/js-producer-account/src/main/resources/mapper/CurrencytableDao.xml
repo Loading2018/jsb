@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.jsproduceraccount.dao.CurrencytableDao">
+
+    <resultMap type="com.cloud.jsproduceraccount.entity.Currencytable" id="CurrencytableMap">
+        <result property="currencytableId" column="currencytable_id" jdbcType="INTEGER"/>
+        <result property="currencytableName" column="currencytable_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CurrencytableMap">
+        select
+          currencytable_name
+        from currencytable
+        where currencytable_id = #{currencytableId}
+    </select>
+</mapper>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.jsproducercreditcard.dao.CreditcardAgingDao">
+
+    <resultMap type="com.example.jsproducercreditcard.entity.CreditcardAging" id="CreditcardAgingMap">
+        <result property="agingId" column="aging_id" jdbcType="INTEGER"/>
+        <result property="agingAmount" column="aging_amount" jdbcType="INTEGER"/>
+        <result property="agingCharges" column="aging_charges" jdbcType="NUMERIC"/>
+        <result property="agingPeriods" column="aging_periods" jdbcType="VARCHAR"/>
+        <result property="agingMode" column="aging_mode" jdbcType="VARCHAR"/>
+        <result property="agingRefund" column="aging_refund" jdbcType="NUMERIC"/>
+        <result property="agingCapital" column="aging_capital" jdbcType="NUMERIC"/>
+        <result property="agingSurplusrefund" column="aging_surplusrefund" jdbcType="NUMERIC"/>
+        <result property="agingSurpluscapital" column="aging_surpluscapital" jdbcType="NUMERIC"/>
+        <result property="agingSurpluscharges" column="aging_surpluscharges" jdbcType="NUMERIC"/>
+        <result property="agingPriorfund" column="aging_priorfund" jdbcType="NUMERIC"/>
+        <result property="agingLowestfund" column="aging_lowestfund" jdbcType="NUMERIC"/>
+        <result property="agingOptimalfund" column="aging_optimalfund" jdbcType="NUMERIC"/>
+        <result property="agingFund" column="aging_fund" jdbcType="NUMERIC"/>
+        <result property="agingCardid" column="aging_cardid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CreditcardAgingMap">
+        select
+          aging_id, aging_amount, aging_charges, aging_periods, aging_mode, aging_refund, aging_capital, aging_surplusrefund, aging_surpluscapital, aging_surpluscharges, aging_priorfund, aging_lowestfund, aging_optimalfund, aging_fund, aging_cardid
+        from js_creditcard.creditcard_aging
+        where aging_cardid = #{agingCardid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CreditcardAgingMap">
+        select
+          aging_id, aging_amount, aging_charges, aging_periods, aging_mode, aging_refund, aging_capital, aging_surplusrefund, aging_surpluscapital, aging_surpluscharges, aging_priorfund, aging_lowestfund, aging_optimalfund, aging_fund, aging_cardid
+        from js_creditcard.creditcard_aging
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CreditcardAgingMap">
+        select
+          aging_id, aging_amount, aging_charges, aging_periods, aging_mode, aging_refund, aging_capital, aging_surplusrefund, aging_surpluscapital, aging_surpluscharges, aging_priorfund, aging_lowestfund, aging_optimalfund, aging_fund, aging_cardid
+        from js_creditcard.creditcard_aging
+        <where>
+            <if test="agingId != null">
+                and aging_id = #{agingId}
+            </if>
+            <if test="agingAmount != null">
+                and aging_amount = #{agingAmount}
+            </if>
+            <if test="agingCharges != null">
+                and aging_charges = #{agingCharges}
+            </if>
+            <if test="agingPeriods != null and agingPeriods != ''">
+                and aging_periods = #{agingPeriods}
+            </if>
+            <if test="agingMode != null and agingMode != ''">
+                and aging_mode = #{agingMode}
+            </if>
+            <if test="agingRefund != null">
+                and aging_refund = #{agingRefund}
+            </if>
+            <if test="agingCapital != null">
+                and aging_capital = #{agingCapital}
+            </if>
+            <if test="agingSurplusrefund != null">
+                and aging_surplusrefund = #{agingSurplusrefund}
+            </if>
+            <if test="agingSurpluscapital != null">
+                and aging_surpluscapital = #{agingSurpluscapital}
+            </if>
+            <if test="agingSurpluscharges != null">
+                and aging_surpluscharges = #{agingSurpluscharges}
+            </if>
+            <if test="agingPriorfund != null">
+                and aging_priorfund = #{agingPriorfund}
+            </if>
+            <if test="agingLowestfund != null">
+                and aging_lowestfund = #{agingLowestfund}
+            </if>
+            <if test="agingOptimalfund != null">
+                and aging_optimalfund = #{agingOptimalfund}
+            </if>
+            <if test="agingFund != null">
+                and aging_fund = #{agingFund}
+            </if>
+            <if test="agingCardid != null">
+                and aging_cardid = #{agingCardid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="agingId" useGeneratedKeys="true">
+        insert into js_creditcard.creditcard_aging(aging_amount, aging_charges, aging_periods, aging_mode, aging_refund, aging_capital, aging_surplusrefund, aging_surpluscapital, aging_surpluscharges, aging_priorfund, aging_lowestfund, aging_optimalfund, aging_fund, aging_cardid)
+        values (#{agingAmount}, #{agingCharges}, #{agingPeriods}, #{agingMode}, #{agingRefund}, #{agingCapital}, #{agingSurplusrefund}, #{agingSurpluscapital}, #{agingSurpluscharges}, #{agingPriorfund}, #{agingLowestfund}, #{agingOptimalfund}, #{agingFund}, #{agingCardid})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js_creditcard.creditcard_aging
+        <set>
+            <if test="agingAmount != null">
+                aging_amount = #{agingAmount},
+            </if>
+            <if test="agingCharges != null">
+                aging_charges = #{agingCharges},
+            </if>
+            <if test="agingPeriods != null and agingPeriods != ''">
+                aging_periods = #{agingPeriods},
+            </if>
+            <if test="agingMode != null and agingMode != ''">
+                aging_mode = #{agingMode},
+            </if>
+            <if test="agingRefund != null">
+                aging_refund = #{agingRefund},
+            </if>
+            <if test="agingCapital != null">
+                aging_capital = #{agingCapital},
+            </if>
+            <if test="agingSurplusrefund != null">
+                aging_surplusrefund = #{agingSurplusrefund},
+            </if>
+            <if test="agingSurpluscapital != null">
+                aging_surpluscapital = #{agingSurpluscapital},
+            </if>
+            <if test="agingSurpluscharges != null">
+                aging_surpluscharges = #{agingSurpluscharges},
+            </if>
+            <if test="agingPriorfund != null">
+                aging_priorfund = #{agingPriorfund},
+            </if>
+            <if test="agingLowestfund != null">
+                aging_lowestfund = #{agingLowestfund},
+            </if>
+            <if test="agingOptimalfund != null">
+                aging_optimalfund = #{agingOptimalfund},
+            </if>
+            <if test="agingFund != null">
+                aging_fund = #{agingFund},
+            </if>
+            <if test="agingCardid != null">
+                aging_cardid = #{agingCardid},
+            </if>
+        </set>
+        where aging_id = #{agingId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js_creditcard.creditcard_aging where aging_id = #{agingId}
+    </delete>
+
+</mapper>

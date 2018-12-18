@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.jsproducercreditcard.dao.CreditcardAreaDao">
+
+    <resultMap type="com.example.jsproducercreditcard.entity.CreditcardArea" id="CreditcardAreaMap">
+        <result property="areaId" column="area_id" jdbcType="INTEGER"/>
+        <result property="areaProvinc" column="area_provinc" jdbcType="VARCHAR"/>
+        <result property="areaCity" column="area_city" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CreditcardAreaMap">
+        select
+          area_id, area_provinc, area_city
+        from js_creditcard.creditcard_area
+        where area_id = #{areaId}
+    </select>
+
+    <!--查询单个-->
+    <select id="getAll" resultMap="CreditcardAreaMap">
+        select
+          area_id, area_provinc, area_city
+        from js_creditcard.creditcard_area
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CreditcardAreaMap">
+        select
+          area_id, area_provinc, area_city
+        from js_creditcard.creditcard_area
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CreditcardAreaMap">
+        select
+          area_id, area_provinc, area_city
+        from js_creditcard.creditcard_area
+        <where>
+            <if test="areaId != null">
+                and area_id = #{areaId}
+            </if>
+            <if test="areaProvinc != null and areaProvinc != ''">
+                and area_provinc = #{areaProvinc}
+            </if>
+            <if test="areaCity != null and areaCity != ''">
+                and area_city = #{areaCity}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="areaId" useGeneratedKeys="true">
+        insert into js_creditcard.creditcard_area(area_provinc, area_city)
+        values (#{areaProvinc}, #{areaCity})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js_creditcard.creditcard_area
+        <set>
+            <if test="areaProvinc != null and areaProvinc != ''">
+                area_provinc = #{areaProvinc},
+            </if>
+            <if test="areaCity != null and areaCity != ''">
+                area_city = #{areaCity},
+            </if>
+        </set>
+        where area_id = #{areaId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js_creditcard.creditcard_area where area_id = #{areaId}
+    </delete>
+
+</mapper>

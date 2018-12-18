@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.jsproducerremittance.dao.BatchDao">
+
+    <resultMap type="com.cloud.jsproducerremittance.entity.Batch" id="BatchMap">
+        <result property="batchId" column="batch_id" jdbcType="INTEGER"/>
+        <result property="batchName" column="batch_name" jdbcType="VARCHAR"/>
+        <result property="batchNumber" column="batch_number" jdbcType="VARCHAR"/>
+        <result property="batchSite" column="batch_site" jdbcType="VARCHAR"/>
+        <result property="batchPrice" column="batch_price" jdbcType="VARCHAR"/>
+        <result property="batchPhone" column="batch_phone" jdbcType="VARCHAR"/>
+        <result property="batchPayname" column="batch_payname" jdbcType="VARCHAR"/>
+        <result property="batchPaynumber" column="batch_paynumber" jdbcType="VARCHAR"/>
+        <result property="batchPayuserid" column="batch_payuserid" jdbcType="INTEGER"/>
+        <result property="batchTime" column="batch_time" jdbcType="VARCHAR"/>
+        <result property="batchCurrency" column="batch_currency" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BatchMap" parameterType="int">
+        select
+          batch_id, batch_name, batch_number, batch_site, batch_price, batch_phone, batch_payname, batch_paynumber, batch_payuserid, batch_time
+        from batch
+        where batch_id = #{batchId}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BatchMap">
+        select
+          batch_id, batch_number, batch_site, batch_price, batch_paynumber, batch_payuserid, batch_time
+        from batch
+        <where>
+
+            <if test="batchNumber != null and batchNumber != ''">
+                and batch_number = #{batchNumber}
+            </if>
+
+            <if test="batchPaynumber != null and batchPaynumber != ''">
+                and batch_paynumber = #{batchPaynumber}
+            </if>
+
+            <if test="oneTime != null and oneTime != '' and twoTime != null and twoTime != ''">
+                and batch_time between #{oneTime} and #{twoTime}
+            </if>
+
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="batchId" useGeneratedKeys="true" parameterType="com.cloud.jsproducerremittance.entity.Batch">
+        insert into batch(batch_name, batch_number, batch_site, batch_price, batch_phone, batch_payname, batch_paynumber, batch_payuserid, batch_time, batch_currency)
+        values (#{batchName}, #{batchNumber}, #{batchSite}, #{batchPrice}, #{batchPhone}, #{batchPayname}, #{batchPaynumber}, #{batchPayuserid}, #{batchTime}, #{batchCurrency})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js_bank_account.batch
+        <set>
+            <if test="batchName != null and batchName != ''">
+                batch_name = #{batchName},
+            </if>
+            <if test="batchNumber != null and batchNumber != ''">
+                batch_number = #{batchNumber},
+            </if>
+            <if test="batchSite != null and batchSite != ''">
+                batch_site = #{batchSite},
+            </if>
+            <if test="batchPrice != null and batchPrice != ''">
+                batch_price = #{batchPrice},
+            </if>
+            <if test="batchPhone != null and batchPhone != ''">
+                batch_phone = #{batchPhone},
+            </if>
+            <if test="batchPayname != null and batchPayname != ''">
+                batch_payname = #{batchPayname},
+            </if>
+            <if test="batchPaynumber != null and batchPaynumber != ''">
+                batch_paynumber = #{batchPaynumber},
+            </if>
+            <if test="batchPayuserid != null">
+                batch_payuserid = #{batchPayuserid},
+            </if>
+            <if test="batchTime != null and batchTime != ''">
+                batch_time = #{batchTime},
+            </if>
+            <if test="batchCurrency != null and batchCurrency != ''">
+                batch_currency = #{batchCurrency},
+            </if>
+        </set>
+        where batch_id = #{batchId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js_bank_account.batch where batch_id = #{batchId}
+    </delete>
+
+</mapper>

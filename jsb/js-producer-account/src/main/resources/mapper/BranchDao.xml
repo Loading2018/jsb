@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.jsproduceraccount.dao.BranchDao">
+
+    <resultMap type="com.cloud.jsproduceraccount.entity.Branch" id="BranchMap">
+        <result property="branchId" column="branch_id" jdbcType="INTEGER"/>
+        <result property="branchName" column="branch_name" jdbcType="VARCHAR"/>
+        <result property="branchSite" column="branch_site" jdbcType="VARCHAR"/>
+        <result property="branchPhone" column="branch_phone" jdbcType="VARCHAR"/>
+        <result property="branchData" column="branch_data" jdbcType="VARCHAR"/>
+        <result property="branchBusinessone" column="branch_businessone" jdbcType="INTEGER"/>
+        <result property="branchBusinesstwo" column="branch_businesstwo" jdbcType="INTEGER"/>
+        <result property="branchLongitude" column="branch_longitude" jdbcType="VARCHAR"/>
+        <result property="branchDimensionality" column="branch_dimensionality" jdbcType="VARCHAR"/>
+        <result property="branchDataTwo" column="branch_datatwo" jdbcType="INTEGER"/>
+    </resultMap>
+    <!--根据网点ID查询网点的经纬度-->
+    <select id="querylonlat" resultMap="BranchMap">
+        select branch_longitude,branch_dimensionality from branch where branch_id = #{id}
+    </select>
+    <!--根据ID查网点-->
+    <select id="queryByallid" resultMap="BranchMap">
+        select branch_id,branch_name,branch_site,branch_phone from branch where branch_id = #{id}
+    </select>
+    <!--查询单个网点地址-->
+    <select id="queryById" resultMap="BranchMap">
+        select branch_site from branch where branch_id = #{id}
+    </select>
+    <!--根据网址ID查询网点名称  暂定-->
+    <select id="querybyid" resultMap="BranchMap">
+        select branch_name from branch where branch_id = #{id}
+    </select>
+    <!--根据业务类型查询可以办理业务的网点-->
+    <select id="query" resultMap="BranchMap">
+        select branch_id,branch_name from branch
+        where
+        <if test="one == 1">
+            branch_businessone = #{one}
+        </if>
+        <if test="one == 2">
+            branch_businesstwo = #{one}
+        </if>
+    </select>
+    <!--根据星期几和网点ID查询网点受理业务时间段-->
+    <select id="queryByIdAndTime" resultMap="BranchMap">
+        select
+          <if test="one != null">
+              branch_data
+          </if>
+          <if test="two != null">
+              branch_datatwo
+          </if>
+        from branch where branch_id = #{id}
+    </select>
+
+
+
+
+
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BranchMap">
+        select
+          branch_id, branch_name, branch_site, branch_data, branch_businessone, branch_businesstwo, branch_longitude, branch_dimensionality
+        from js_bank_account.branch
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BranchMap">
+        select
+          branch_id, branch_name, branch_site, branch_data, branch_businessone, branch_businesstwo, branch_longitude, branch_dimensionality
+        from js_bank_account.branch
+        <where>
+            <if test="branchId != null">
+                and branch_id = #{branchId}
+            </if>
+            <if test="branchName != null and branchName != ''">
+                and branch_name = #{branchName}
+            </if>
+            <if test="branchSite != null and branchSite != ''">
+                and branch_site = #{branchSite}
+            </if>
+            <if test="branchData != null and branchData != ''">
+                and branch_data = #{branchData}
+            </if>
+            <if test="branchBusinessone != null">
+                and branch_businessone = #{branchBusinessone}
+            </if>
+            <if test="branchBusinesstwo != null">
+                and branch_businesstwo = #{branchBusinesstwo}
+            </if>
+            <if test="branchLongitude != null and branchLongitude != ''">
+                and branch_longitude = #{branchLongitude}
+            </if>
+            <if test="branchDimensionality != null and branchDimensionality != ''">
+                and branch_dimensionality = #{branchDimensionality}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="branchId" useGeneratedKeys="true">
+        insert into js_bank_account.branch(branch_name, branch_site, branch_data, branch_businessone, branch_businesstwo, branch_longitude, branch_dimensionality)
+        values (#{branchName}, #{branchSite}, #{branchData}, #{branchBusinessone}, #{branchBusinesstwo}, #{branchLongitude}, #{branchDimensionality})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js_bank_account.branch
+        <set>
+            <if test="branchName != null and branchName != ''">
+                branch_name = #{branchName},
+            </if>
+            <if test="branchSite != null and branchSite != ''">
+                branch_site = #{branchSite},
+            </if>
+            <if test="branchData != null and branchData != ''">
+                branch_data = #{branchData},
+            </if>
+            <if test="branchBusinessone != null">
+                branch_businessone = #{branchBusinessone},
+            </if>
+            <if test="branchBusinesstwo != null">
+                branch_businesstwo = #{branchBusinesstwo},
+            </if>
+            <if test="branchLongitude != null and branchLongitude != ''">
+                branch_longitude = #{branchLongitude},
+            </if>
+            <if test="branchDimensionality != null and branchDimensionality != ''">
+                branch_dimensionality = #{branchDimensionality},
+            </if>
+        </set>
+        where branch_id = #{branchId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js_bank_account.branch where branch_id = #{branchId}
+    </delete>
+
+</mapper>

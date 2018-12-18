@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("button").click(function () {
+                var param = $("#f").serialize();
+                var a = param.split("&");
+                var c = new Array();
+                var d  = new Array();
+                for (var i = 0;i<a.length;i++){
+                   var b =  a[i].split("=");
+                   if(b[1] != null && b[1] != ""){
+                         c.push(b[0]);
+                       d.push(b[1]);
+                   }
+                }
+                alert(c)
+                alert(d)
+                $.post("/addInform","loansType=1&loansRefund=1&loansMoney=200&loansLong=2&loanscard=1&loansUserid=2&name="+c+"&value="+d,function () {
+                    alert(param)
+                });
+            })
+        })
+    </script>
+</head>
+<body>
+    <form id="f">
+        <table>
+            <tr>
+                <th>房屋信息:</th>
+                <th>
+                    <input name="房屋信息">
+                </th>
+                <th>房屋价格</th>
+                <th>
+                    <input name="房屋价格">
+                </th>
+                <th>姓名</th>
+                <th>
+                    <input name="姓名">
+                </th>
+                <th>性别</th>
+                <th>
+                    <input name="性别">
+                </th>
+                <th>地址</th>
+                <th>
+                    <input name="地址">
+                </th>
+            </tr>
+        </table>
+    </form>
+<button>提交</button>
+</body>
+</html>

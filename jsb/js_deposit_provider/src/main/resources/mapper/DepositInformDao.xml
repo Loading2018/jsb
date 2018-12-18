@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.js_deposit_provider.dao.DepositInformDao">
+
+    <resultMap type="com.example.js_deposit_provider.entity.DepositInform" id="DepositInformMap">
+        <result property="depositInformid" column="deposit_informId" jdbcType="INTEGER"/>
+        <result property="depositInformnumber" column="deposit_informNumber" jdbcType="VARCHAR"/>
+        <result property="depositInformmoney" column="deposit_informMoney" jdbcType="DOUBLE"/>
+        <result property="depositInformstate" column="deposit_informState" jdbcType="VARCHAR"/>
+        <result property="depositInformcardid" column="deposit_informCardId" jdbcType="VARCHAR"/>
+        <result property="depositInformuserid" column="deposit_informUserId" jdbcType="VARCHAR"/>
+        <result property="depositInformtype" column="deposit_informType" jdbcType="INTEGER"/>
+        <result property="depositInformtime" column="deposit_informTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DepositInformMap">
+        select
+          deposit_informId, deposit_informNumber, deposit_informMoney, deposit_informState, deposit_informCardId, deposit_informUserId, deposit_informType, deposit_informTime
+        from deposit_inform
+        where deposit_informId = #{depositInformid}
+    </select>
+    <select id="selMoney" resultMap="DepositInformMap"  parameterType="int">
+        select deposit_informMoney,deposit_informCardId,deposit_informType,deposit_informTime
+        from deposit_inform
+        where deposit_informId = #{depositInformid}
+    </select>
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DepositInformMap">
+        select
+          deposit_informId, deposit_informNumber, deposit_informMoney, deposit_informState, deposit_informCardId, deposit_informUserId, deposit_informType, deposit_informTime
+        from deposit_inform
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DepositInformMap">
+        select
+          deposit_informId, deposit_informNumber, deposit_informMoney, deposit_informState, deposit_informCardId, deposit_informUserId, deposit_informType, deposit_informTime
+        from deposit_inform
+        <where>
+            <if test="depositInformid != null">
+                and deposit_informId = #{depositInformid}
+            </if>
+            <if test="depositInformnumber != null and depositInformnumber != ''">
+                and deposit_informNumber = #{depositInformnumber}
+            </if>
+            <if test="depositInformmoney != null">
+                and deposit_informMoney = #{depositInformmoney}
+            </if>
+            <if test="depositInformstate != null and depositInformstate != ''">
+                and deposit_informState = #{depositInformstate}
+            </if>
+            <if test="depositInformcardid != null and depositInformcardid != ''">
+                and deposit_informCardId = #{depositInformcardid}
+            </if>
+            <if test="depositInformuserid != null and depositInformuserid != ''">
+                and deposit_informUserId = #{depositInformuserid}
+            </if>
+            <if test="depositInformtype != null">
+                and deposit_informType = #{depositInformtype}
+            </if>
+            <if test="depositInformtime != null">
+                and deposit_informTime = #{depositInformtime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="depositInformid" useGeneratedKeys="true">
+        insert into deposit_inform(deposit_informNumber, deposit_informMoney, deposit_informState, deposit_informCardId, deposit_informUserId, deposit_informType,deposit_informTime)
+        values (#{depositInformnumber}, #{depositInformmoney}, #{depositInformstate}, #{depositInformcardid}, #{depositInformuserid}, #{depositInformtype},#{depositInformtime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update deposit_inform
+        <set>
+            <if test="depositInformnumber != null and depositInformnumber != ''">
+                deposit_informNumber = #{depositInformnumber},
+            </if>
+            <if test="depositInformmoney != null">
+                deposit_informMoney = #{depositInformmoney},
+            </if>
+            <if test="depositInformstate != null and depositInformstate != ''">
+                deposit_informState = #{depositInformstate},
+            </if>
+            <if test="depositInformcardid != null and depositInformcardid != ''">
+                deposit_informCardId = #{depositInformcardid},
+            </if>
+            <if test="depositInformuserid != null and depositInformuserid != ''">
+                deposit_informUserId = #{depositInformuserid},
+            </if>
+            <if test="depositInformtype != null">
+                deposit_informType = #{depositInformtype},
+            </if>
+            <if test="depositInformtime != null">
+                deposit_informTime = #{depositInformtime},
+            </if>
+        </set>
+        where deposit_informId = #{depositInformid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from deposit_inform where deposit_informId = #{depositInformid}
+    </delete>
+    <select id="getInfomByUserid" resultMap="DepositInformMap" parameterType="String">
+        select  deposit_informNumber,deposit_informMoney,deposit_informType,deposit_informTime
+        from  deposit_inform
+        where  deposit_informUserId = #{userid}
+    </select>
+    <update id="withdrawal" parameterType="int">
+        update deposit_inform
+        set deposit_informMoney =deposit_informMoney - #{informMoney}
+        where deposit_informId = #{infromid}
+    </update>
+</mapper>

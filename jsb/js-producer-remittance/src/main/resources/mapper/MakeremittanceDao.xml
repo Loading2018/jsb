@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.jsproducerremittance.dao.MakeremittanceDao">
+
+    <resultMap type="com.cloud.jsproducerremittance.entity.Makeremittance" id="MakeremittanceMap">
+        <result property="makeremittanceId" column="makeremittance_id" jdbcType="INTEGER"/>
+        <result property="makeremittanceSerialnumber" column="makeremittance_serialnumber" jdbcType="VARCHAR"/>
+        <result property="makeremittanceTime" column="makeremittance_time" jdbcType="VARCHAR"/>
+        <result property="makeremittanceData" column="makeremittance_data" jdbcType="VARCHAR"/>
+        <result property="makeremittancePrice" column="makeremittance_price" jdbcType="VARCHAR"/>
+        <result property="makeremittancePaynumber" column="makeremittance_paynumber" jdbcType="VARCHAR"/>
+        <result property="makeremittanceName" column="makeremittance_name" jdbcType="VARCHAR"/>
+        <result property="makeremittanceNumber" column="makeremittance_number" jdbcType="VARCHAR"/>
+        <result property="makeremittancePayuserid" column="makeremittance_payuserid" jdbcType="INTEGER"/>
+        <result property="makeremittancePayname" column="makeremittance_payname" jdbcType="VARCHAR"/>
+        <result property="makeremittanceBranch" column="makeremittance_branch" jdbcType="INTEGER"/>
+        <result property="makeremittanceType" column="makeremittance_type" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MakeremittanceMap">
+        select
+          makeremittance_id, makeremittance_serialnumber, makeremittance_time, makeremittance_data, makeremittance_price, makeremittance_paynumber, makeremittance_name, makeremittance_number, makeremittance_payuserid, makeremittance_payname, makeremittance_type, makeremittance_branch
+        from js_bank_account.makeremittance
+        where makeremittance_id = #{makeremittanceId}
+    </select>
+
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MakeremittanceMap">
+        select
+          makeremittance_id, makeremittance_serialnumber, makeremittance_time, makeremittance_data, makeremittance_price, makeremittance_paynumber, makeremittance_number, makeremittance_payuserid, makeremittance_payname, makeremittance_type, makeremittance_branch
+        from makeremittance
+        <where>
+
+            <if test="onetime != null and onetime != '' and twotime != null and twotime != ''">
+                and makeremittance_time between #{onetime} and #{twotime} ORDER BY makeremittance_time DESC
+            </if>
+
+            <if test="userid != null and userid != ''">
+                and makeremittance_payuserid = #{userid}
+            </if>
+
+        </where>
+    </select>
+    <!--根据预约汇款编号查询预约详细信息-->
+    <select id="queryByIdd" resultMap="MakeremittanceMap">
+       select makeremittance_id, makeremittance_serialnumber, makeremittance_time, makeremittance_data, makeremittance_price, makeremittance_paynumber, makeremittance_number, makeremittance_payuserid, makeremittance_payname, makeremittance_type, makeremittance_branch
+       from  makeremittance where makeremittance_serialnumber = #{Serialnumber} and makeremittance_payuserid = #{userid}
+    </select>
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="makeremittanceId" useGeneratedKeys="true" parameterType="com.cloud.jsproducerremittance.entity.Makeremittance">
+        insert into makeremittance(makeremittance_serialnumber, makeremittance_time, makeremittance_data, makeremittance_price, makeremittance_paynumber, makeremittance_name, makeremittance_number, makeremittance_payuserid, makeremittance_payname, makeremittance_type, makeremittance_branch)
+        values (#{makeremittanceSerialnumber}, #{makeremittanceTime}, #{makeremittanceData}, #{makeremittancePrice}, #{makeremittancePaynumber}, #{makeremittanceName}, #{makeremittanceNumber}, #{makeremittancePayuserid}, #{makeremittancePayname}, #{makeremittanceType}, #{makeremittanceBranch})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update makeremittance set makeremittance_type = 3 where makeremittance_payuserid = #{userid} and makeremittance_serialnumber = #{Serialnumber}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js_bank_account.makeremittance where makeremittance_id = #{makeremittanceId}
+    </delete>
+
+</mapper>

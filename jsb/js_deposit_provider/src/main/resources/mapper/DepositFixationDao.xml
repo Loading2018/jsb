@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.js_deposit_provider.dao.DepositFixationDao">
+
+    <resultMap type="com.example.js_deposit_provider.entity.DepositFixation" id="DepositFixationMap">
+        <result property="depositFixationid" column="deposit_fixationId" jdbcType="INTEGER"/>
+        <result property="depositFixationnumber" column="deposit_fixationNumber" jdbcType="VARCHAR"/>
+        <result property="depositFixationcardid" column="deposit_fixationCardID" jdbcType="VARCHAR"/>
+        <result property="depositFixationmoney" column="deposit_fixationMoney" jdbcType="DOUBLE"/>
+        <result property="deposit_fixationLv" column="deposit_fixationLv" jdbcType="DOUBLE"/>
+        <result property="depositFixationbusinesstype" column="deposit_fixationBusinessType" jdbcType="VARCHAR"/>
+        <result property="depositFixationintime" column="deposit_fixationInTime" jdbcType="TIMESTAMP"/>
+        <result property="depositFixationouttime" column="deposit_fixationOutTime" jdbcType="TIMESTAMP"/>
+        <result property="depositFixationuserid" column="deposit_fixationUserId" jdbcType="INTEGER"/>
+        <result property="depositState" column="deposit_state" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DepositFixationMap">
+        select
+          deposit_fixationId, deposit_fixationNumber, deposit_fixationCardID, deposit_fixationMoney, deposit_fixationLv, deposit_fixationBusinessType, deposit_fixationInTime, deposit_fixationOutTime, deposit_fixationUserId
+        from deposit_fixation
+        where deposit_fixationId = #{depositFixationid}
+    </select>
+    <select id="getAllById" resultMap="DepositFixationMap">
+        select deposit_fixationId, deposit_fixationNumber, deposit_fixationCardID, deposit_fixationMoney, deposit_fixationLv, deposit_fixationInTime, deposit_fixationOutTime
+        from    deposit_fixation
+        where deposit_fixationUserId = #{userid}
+    </select>
+    <select id="getAll" resultMap="DepositFixationMap">
+        select  deposit_fixationId,deposit_fixationCardID,deposit_fixationMoney,deposit_fixationLv
+        from deposit_fixation
+        WHERE deposit_fixationOutTime = #{d}
+    </select>
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DepositFixationMap">
+        select
+          deposit_fixationId, deposit_fixationNumber, deposit_fixationCardID, deposit_fixationMoney, deposit_fixationMoneyAndLX, deposit_fixationBusinessType, deposit_fixationInTime, deposit_fixationOutTime, deposit_fixationUserId
+        from deposit_fixation
+        limit #{offset}, #{limit}
+    </select>
+    <!--查询余额-->
+    <select id="getYE" resultMap="DepositFixationMap">
+        select  deposit_fixationMoney,deposit_fixationCardID
+        from  deposit_fixation
+        where deposit_fixationId = #{informid}
+    </select>
+    <!---  扣钱 -->
+    <update id="getMoney">
+        update deposit_fixation
+        set deposit_fixationMoney= deposit_fixationMoney - #{money}
+        where deposit_fixationId = #{informid}
+    </update>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DepositFixationMap">
+        select
+          deposit_fixationId, deposit_fixationNumber, deposit_fixationCardID, deposit_fixationMoney, deposit_fixationMoneyAndLX, deposit_fixationBusinessType, deposit_fixationInTime, deposit_fixationOutTime, deposit_fixationUserId
+        from js-deposit.deposit_fixation
+        <where>
+            <if test="depositFixationid != null">
+                and deposit_fixationId = #{depositFixationid}
+            </if>
+            <if test="depositFixationnumber != null and depositFixationnumber != ''">
+                and deposit_fixationNumber = #{depositFixationnumber}
+            </if>
+            <if test="depositFixationcardid != null and depositFixationcardid != ''">
+                and deposit_fixationCardID = #{depositFixationcardid}
+            </if>
+            <if test="depositFixationmoney != null and depositFixationmoney != ''">
+                and deposit_fixationMoney = #{depositFixationmoney}
+            </if>
+            <if test="depositFixationmoneyandlx != null and depositFixationmoneyandlx != ''">
+                and deposit_fixationMoneyAndLX = #{depositFixationmoneyandlx}
+            </if>
+            <if test="depositFixationbusinesstype != null and depositFixationbusinesstype != ''">
+                and deposit_fixationBusinessType = #{depositFixationbusinesstype}
+            </if>
+            <if test="depositFixationintime != null">
+                and deposit_fixationInTime = #{depositFixationintime}
+            </if>
+            <if test="depositFixationouttime != null">
+                and deposit_fixationOutTime = #{depositFixationouttime}
+            </if>
+            <if test="depositFixationuserid != null">
+                and deposit_fixationUserId = #{depositFixationuserid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="depositFixationid" useGeneratedKeys="true">
+        insert into deposit_fixation(deposit_fixationNumber, deposit_fixationCardID, deposit_fixationMoney, deposit_fixationLv, deposit_fixationBusinessType, deposit_fixationInTime, deposit_fixationOutTime, deposit_fixationUserId,deposit_state)
+        values (#{depositFixationnumber}, #{depositFixationcardid}, #{depositFixationmoney}, #{deposit_fixationLv}, #{depositFixationbusinesstype}, #{depositFixationintime}, #{depositFixationouttime}, #{depositFixationuserid},0)
+    </insert>
+    <update id="changeState">
+        update deposit_fixation
+        set deposit_state = 1
+        where deposit_fixationId = #{informid}
+    </update>
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js-deposit.deposit_fixation
+        <set>
+            <if test="depositFixationnumber != null and depositFixationnumber != ''">
+                deposit_fixationNumber = #{depositFixationnumber},
+            </if>
+            <if test="depositFixationcardid != null and depositFixationcardid != ''">
+                deposit_fixationCardID = #{depositFixationcardid},
+            </if>
+            <if test="depositFixationmoney != null and depositFixationmoney != ''">
+                deposit_fixationMoney = #{depositFixationmoney},
+            </if>
+            <if test="depositFixationmoneyandlx != null and depositFixationmoneyandlx != ''">
+                deposit_fixationMoneyAndLX = #{depositFixationmoneyandlx},
+            </if>
+            <if test="depositFixationbusinesstype != null and depositFixationbusinesstype != ''">
+                deposit_fixationBusinessType = #{depositFixationbusinesstype},
+            </if>
+            <if test="depositFixationintime != null">
+                deposit_fixationInTime = #{depositFixationintime},
+            </if>
+            <if test="depositFixationouttime != null">
+                deposit_fixationOutTime = #{depositFixationouttime},
+            </if>
+            <if test="depositFixationuserid != null">
+                deposit_fixationUserId = #{depositFixationuserid},
+            </if>
+        </set>
+        where deposit_fixationId = #{depositFixationid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js-deposit.deposit_fixation where deposit_fixationId = #{depositFixationid}
+    </delete>
+
+</mapper>

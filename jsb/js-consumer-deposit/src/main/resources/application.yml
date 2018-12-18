@@ -1,0 +1,22 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: js-consumer-deposit
+#  zipkin: #追踪
+#    base-url: http://localhost:7700
+  sleuth:
+    sampler:
+      percentage: 1.0
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:123456@47.94.235.82:7776/eureka/
+feign:
+  hystrix:
+    enabled: true
+dm-spring-provider-zhanghu:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+logging:
+  level: info

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.jsproducercreditcard.dao.CreditcardConsumeDao">
+
+    <resultMap type="com.example.jsproducercreditcard.entity.CreditcardConsume" id="CreditcardConsumeMap">
+        <result property="consumeId" column="consume_id" jdbcType="INTEGER"/>
+        <result property="consumeDate" column="consume_date" jdbcType="VARCHAR"/>
+        <result property="cousumeMoney" column="cousume_money" jdbcType="NUMERIC"/>
+        <result property="cousumeMessage" column="cousume_message" jdbcType="VARCHAR"/>
+        <result property="cousumeCardid" column="cousume_cardid" jdbcType="INTEGER"/>
+        <result property="cousumeArea" column="cousume_area" jdbcType="VARCHAR"/>
+        <result property="consumeSign" column="consume_sign" jdbcType="VARCHAR"/>
+        <result property="consumeCapital" column="consume_capital" jdbcType="VARCHAR"/>
+        <result property="consumeBalance" column="consume_balance" jdbcType="VARCHAR"/>
+        <result property="consumeCurrency" column="consume_currency" jdbcType="VARCHAR"/>
+        <result property="consumeDealmoney" column="consume_dealmoney" jdbcType="VARCHAR"/>
+        <result property="consumeTallycurrency" column="consume_tallycurrency" jdbcType="VARCHAR"/>
+        <result property="consumeTallymoney" column="consume_tallymoney" jdbcType="VARCHAR"/>
+        <result property="consumePlace" column="consume_place" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CreditcardConsumeMap">
+        select
+          consume_id, consume_date, cousume_money, cousume_message, cousume_cardid, cousume_area, consume_sign, consume_capital, consume_balance, consume_currency, consume_dealmoney, consume_tallycurrency, consume_tallymoney, consume_place
+        from js_creditcard.creditcard_consume
+        where cousume_cardid = #{cousumeCardid}
+    </select>
+
+    <!--查询单个-->
+    <select id="month" resultMap="CreditcardConsumeMap">
+        SELECT consume_id, consume_date, cousume_money, cousume_message, cousume_cardid, cousume_area, consume_sign, consume_capital, consume_balance, consume_currency, consume_dealmoney, consume_tallycurrency, consume_tallymoney, consume_place
+        FROM creditcard_consume
+        WHERE DATE_FORMAT( consume_date, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' ) and cousume_cardid=#{cousumeCardid}
+    </select>
+
+    <!--查询单个-->
+    <select id="getAll" resultMap="CreditcardConsumeMap">
+        select
+          consume_id, consume_date, cousume_money, cousume_message, cousume_cardid, cousume_area, consume_sign, consume_capital, consume_balance, consume_currency, consume_dealmoney, consume_tallycurrency, consume_tallymoney, consume_place
+        from js_creditcard.creditcard_consume
+        where consume_id = #{consumeId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CreditcardConsumeMap">
+        select
+          consume_id, consume_date, cousume_money, cousume_message, cousume_cardid, cousume_area, consume_sign, consume_capital, consume_balance, consume_currency, consume_dealmoney, consume_tallycurrency, consume_tallymoney, consume_place
+        from js_creditcard.creditcard_consume
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CreditcardConsumeMap">
+        select
+          consume_id, consume_date, cousume_money, cousume_message, cousume_cardid, cousume_area, consume_sign, consume_capital, consume_balance, consume_currency, consume_dealmoney, consume_tallycurrency, consume_tallymoney, consume_place
+        from js_creditcard.creditcard_consume
+        <where>
+            <if test="consumeId != null">
+                and consume_id = #{consumeId}
+            </if>
+            <if test="consumeDate != null and consumeDate != ''">
+                and consume_date = #{consumeDate}
+            </if>
+            <if test="cousumeMoney != null">
+                and cousume_money = #{cousumeMoney}
+            </if>
+            <if test="cousumeMessage != null and cousumeMessage != ''">
+                and cousume_message = #{cousumeMessage}
+            </if>
+            <if test="cousumeCardid != null">
+                and cousume_cardid = #{cousumeCardid}
+            </if>
+            <if test="cousumeArea != null and cousumeArea != ''">
+                and cousume_area = #{cousumeArea}
+            </if>
+            <if test="consumeSign != null and consumeSign != ''">
+                and consume_sign = #{consumeSign}
+            </if>
+            <if test="consumeCapital != null and consumeCapital != ''">
+                and consume_capital = #{consumeCapital}
+            </if>
+            <if test="consumeBalance != null and consumeBalance != ''">
+                and consume_balance = #{consumeBalance}
+            </if>
+            <if test="consumeCurrency != null and consumeCurrency != ''">
+                and consume_currency = #{consumeCurrency}
+            </if>
+            <if test="consumeDealmoney != null and consumeDealmoney != ''">
+                and consume_dealmoney = #{consumeDealmoney}
+            </if>
+            <if test="consumeTallycurrency != null and consumeTallycurrency != ''">
+                and consume_tallycurrency = #{consumeTallycurrency}
+            </if>
+            <if test="consumeTallymoney != null and consumeTallymoney != ''">
+                and consume_tallymoney = #{consumeTallymoney}
+            </if>
+            <if test="consumePlace != null and consumePlace != ''">
+                and consume_place = #{consumePlace}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="consumeId" useGeneratedKeys="true">
+        insert into js_creditcard.creditcard_consume(consume_date, cousume_money, cousume_message, cousume_cardid, cousume_area, consume_sign, consume_capital, consume_balance, consume_currency, consume_dealmoney, consume_tallycurrency, consume_tallymoney, consume_place)
+        values (#{consumeDate}, #{cousumeMoney}, #{cousumeMessage}, #{cousumeCardid}, #{cousumeArea}, #{consumeSign}, #{consumeCapital}, #{consumeBalance}, #{consumeCurrency}, #{consumeDealmoney}, #{consumeTallycurrency}, #{consumeTallymoney}, #{consumePlace})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js_creditcard.creditcard_consume
+        <set>
+            <if test="consumeDate != null and consumeDate != ''">
+                consume_date = #{consumeDate},
+            </if>
+            <if test="cousumeMoney != null">
+                cousume_money = #{cousumeMoney},
+            </if>
+            <if test="cousumeMessage != null and cousumeMessage != ''">
+                cousume_message = #{cousumeMessage},
+            </if>
+            <if test="cousumeCardid != null">
+                cousume_cardid = #{cousumeCardid},
+            </if>
+            <if test="cousumeArea != null and cousumeArea != ''">
+                cousume_area = #{cousumeArea},
+            </if>
+            <if test="consumeSign != null and consumeSign != ''">
+                consume_sign = #{consumeSign},
+            </if>
+            <if test="consumeCapital != null and consumeCapital != ''">
+                consume_capital = #{consumeCapital},
+            </if>
+            <if test="consumeBalance != null and consumeBalance != ''">
+                consume_balance = #{consumeBalance},
+            </if>
+            <if test="consumeCurrency != null and consumeCurrency != ''">
+                consume_currency = #{consumeCurrency},
+            </if>
+            <if test="consumeDealmoney != null and consumeDealmoney != ''">
+                consume_dealmoney = #{consumeDealmoney},
+            </if>
+            <if test="consumeTallycurrency != null and consumeTallycurrency != ''">
+                consume_tallycurrency = #{consumeTallycurrency},
+            </if>
+            <if test="consumeTallymoney != null and consumeTallymoney != ''">
+                consume_tallymoney = #{consumeTallymoney},
+            </if>
+            <if test="consumePlace != null and consumePlace != ''">
+                consume_place = #{consumePlace},
+            </if>
+        </set>
+        where consume_id = #{consumeId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js_creditcard.creditcard_consume where consume_id = #{consumeId}
+    </delete>
+
+</mapper>

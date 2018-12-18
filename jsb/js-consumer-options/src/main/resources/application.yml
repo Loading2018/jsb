@@ -1,0 +1,12 @@
+server:
+  port: 8032
+spring:
+  application:
+    name: js-consumer-options
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:123456@47.94.235.82:7776/eureka/
+feign:
+  hystrix:
+    enabled: true

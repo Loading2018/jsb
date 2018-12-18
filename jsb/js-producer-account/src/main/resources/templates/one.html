@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html模板</title>
+<script src="jquery-1.8.3.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            alert("123");
+           $("#but").click(function () {
+               alert($("#one").val());
+               alert($("#two").val());
+               $.getJSON(
+                   "/map",
+                   "one=" + $("#one").val() + "&two=" + $("#two").val(),
+                   function (re) {
+                       alert(re.one);
+                       alert(re.two);
+                       location="map.html";
+                   }
+               )
+           })
+        });
+    </script>
+</head>
+<body>
+
+    <input id="abc" value=${abc.branchLongitude}>
+    <span>${abc.branchDimensionality}</span>
+
+
+    <input name="oneone" id="one">
+    <input name="twotwo" id="two">
+    <button id="but">提交</button>
+
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.js_deposit_provider.dao.DepositTypeDao">
+
+    <resultMap type="com.example.js_deposit_provider.entity.DepositType" id="DepositTypeMap">
+        <result property="depositTypeid" column="deposit_typeId" jdbcType="INTEGER"/>
+        <result property="deposit Typename" column="deposit _typeName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DepositTypeMap">
+        select
+          deposit_typeId, deposit _typeName
+        from js-deposit.deposit_type
+        where deposit_typeId = #{depositTypeid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DepositTypeMap">
+        select
+          deposit_typeId, deposit _typeName
+        from js-deposit.deposit_type
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DepositTypeMap">
+        select
+          deposit_typeId, deposit _typeName
+        from js-deposit.deposit_type
+        <where>
+            <if test="depositTypeid != null">
+                and deposit_typeId = #{depositTypeid}
+            </if>
+            <if test="deposit Typename != null and deposit Typename != ''">
+                and deposit _typeName = #{deposit Typename}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="depositTypeid" useGeneratedKeys="true">
+        insert into js-deposit.deposit_type(deposit _typeName)
+        values (#{deposit Typename})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js-deposit.deposit_type
+        <set>
+            <if test="deposit Typename != null and deposit Typename != ''">
+                deposit _typeName = #{deposit Typename},
+            </if>
+        </set>
+        where deposit_typeId = #{depositTypeid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js-deposit.deposit_type where deposit_typeId = #{depositTypeid}
+    </delete>
+
+</mapper>

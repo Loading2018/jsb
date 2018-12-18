@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.jsproducercreditcard.dao.CreditcardKindDao">
+
+    <resultMap type="com.example.jsproducercreditcard.entity.CreditcardKind" id="CreditcardKindMap">
+        <result property="kindId" column="kind_id" jdbcType="INTEGER"/>
+        <result property="kindDescribe" column="kind_describe" jdbcType="VARCHAR"/>
+        <result property="kindPicture" column="kind_picture" jdbcType="VARCHAR"/>
+        <result property="kindCrditid" column="kind_crditid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CreditcardKindMap" parameterType="Integer">
+        select
+          kind_id, kind_describe, kind_picture, kind_crditid
+        from js_creditcard.creditcard_kind
+        where kind_id = #{kindId}
+    </select>
+
+    <!--查询单个-->
+    <select id="getAll" resultMap="CreditcardKindMap">
+        select
+          kind_id, kind_describe, kind_picture, kind_crditid
+        from js_creditcard.creditcard_kind
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CreditcardKindMap">
+        select
+          kind_id, kind_describe, kind_picture, kind_crditid
+        from js_creditcard.creditcard_kind
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CreditcardKindMap">
+        select
+          kind_id, kind_describe, kind_picture, kind_crditid
+        from js_creditcard.creditcard_kind
+        <where>
+            <if test="kindId != null">
+                and kind_id = #{kindId}
+            </if>
+            <if test="kindDescribe != null and kindDescribe != ''">
+                and kind_describe = #{kindDescribe}
+            </if>
+            <if test="kindPicture != null and kindPicture != ''">
+                and kind_picture = #{kindPicture}
+            </if>
+            <if test="kindCrditid != null">
+                and kind_crditid = #{kindCrditid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="kindId" useGeneratedKeys="true">
+        insert into js_creditcard.creditcard_kind(kind_describe, kind_picture, kind_crditid)
+        values (#{kindDescribe}, #{kindPicture}, #{kindCrditid})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update js_creditcard.creditcard_kind
+        <set>
+            <if test="kindDescribe != null and kindDescribe != ''">
+                kind_describe = #{kindDescribe},
+            </if>
+            <if test="kindPicture != null and kindPicture != ''">
+                kind_picture = #{kindPicture},
+            </if>
+            <if test="kindCrditid != null">
+                kind_crditid = #{kindCrditid},
+            </if>
+        </set>
+        where kind_id = #{kindId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from js_creditcard.creditcard_kind where kind_id = #{kindId}
+    </delete>
+
+
+    <!--查询单个-->
+    <select id="get" resultMap="CreditcardKindMap" parameterType="Integer">
+        select
+          kind_id, kind_describe, kind_picture, kind_crditid
+        from js_creditcard.creditcard_kind
+        where kind_crditid = #{kindCrditid}
+    </select>
+</mapper>

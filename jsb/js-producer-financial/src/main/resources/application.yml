@@ -1,0 +1,9 @@
+server:
+  port: 8023
+spring:
+  application:
+    name: js-producer-financial
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:123456@47.94.235.82:7776/eureka/
