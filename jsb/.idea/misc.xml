@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="JavaScriptSettings">
-    <option name="languageLevel" value="ES6" />
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/js-spring-zuul/pom.xml" />
+        <option value="$PROJECT_DIR$/js-cosumer-fund/pom.xml" />
+        <option value="$PROJECT_DIR$/js-kafka-client/pom.xml" />
+        <option value="$PROJECT_DIR$/js-consumer-list/pom.xml" />
+        <option value="$PROJECT_DIR$/js-producer-fund/pom.xml" />
+        <option value="$PROJECT_DIR$/js-producer-list/pom.xml" />
+        <option value="$PROJECT_DIR$/js-sleuth-server/pom.xml" />
+        <option value="$PROJECT_DIR$/js-consumer-loans/pom.xml" />
+        <option value="$PROJECT_DIR$/js-producer-loans/pom.xml" />
+        <option value="$PROJECT_DIR$/js-consumer-denglu/pom.xml" />
+        <option value="$PROJECT_DIR$/js-consumer-manage/pom.xml" />
+        <option value="$PROJECT_DIR$/js-denglu-provider/pom.xml" />
+        <option value="$PROJECT_DIR$/js-producer-manage/pom.xml" />
+        <option value="$PROJECT_DIR$/js-consumer-account/pom.xml" />
+        <option value="$PROJECT_DIR$/js-consumer-deposit/pom.xml" />
+        <option value="$PROJECT_DIR$/js-consumer-options/pom.xml" />
+        <option value="$PROJECT_DIR$/js-producer-account/pom.xml" />
+        <option value="$PROJECT_DIR$/js-producer-options/pom.xml" />
+        <option value="$PROJECT_DIR$/js_deposit_provider/pom.xml" />
+        <option value="$PROJECT_DIR$/js-consumer-financial/pom.xml" />
+        <option value="$PROJECT_DIR$/js-consumer-insurance/pom.xml" />
+        <option value="$PROJECT_DIR$/js-producer-financial/pom.xml" />
+        <option value="$PROJECT_DIR$/js-producer-insurance/pom.xml" />
+        <option value="$PROJECT_DIR$/js-consumer-creditcard/pom.xml" />
+        <option value="$PROJECT_DIR$/js-consumer-management/pom.xml" />
+        <option value="$PROJECT_DIR$/js-consumer-remittance/pom.xml" />
+        <option value="$PROJECT_DIR$/js-producer-creditcard/pom.xml" />
+        <option value="$PROJECT_DIR$/js-producer-management/pom.xml" />
+        <option value="$PROJECT_DIR$/js-producer-remittance/pom.xml" />
+        <option value="$PROJECT_DIR$/js-spring-config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/js-spring-eureka-server/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.7" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

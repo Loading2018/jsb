@@ -18,15 +18,10 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class JsDepositProviderApplicationTests {
-    @Resource
-    private  DepositFixationDao depositFixationDao;
+
     @Test
     public void contextLoads() {
-        String nowDate = DateUtil.getNowDate();
-        List<DepositFixation> all = depositFixationDao.getAll(nowDate);
-        for (DepositFixation d: all) {
-            System.out.println(d.getDepositFixationid());
-        }
+
     }
 
 }

@@ -1,9 +1,9 @@
 server:
-  port: 7776
+  port: 6001
 eureka:
   client:
     service-url:
-      defaluZone: localhost:7776/eureka/
+      defaluZone: 39.105.144.187:6001/eureka/
     fetch-registry: false
     register-with-eureka: false
   server:
@@ -13,4 +13,4 @@ security:
     enabled: true
   user:
     name: root
-    password: 123456
+    password: root

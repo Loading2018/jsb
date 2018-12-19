@@ -1,9 +1,0 @@
-server:
-  port: 8025
-spring:
-  application:
-    name: js-producer-account
-eureka:
-  client:
-    service-url:
-      defaultZone: http://root:123456@47.94.235.82:7776/eureka/

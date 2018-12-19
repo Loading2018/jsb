@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="8" />
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="dm-spring-config-server" />
+        <module name="dm-spring-eureka-server" />
+        <module name="js-consumer-deposit" />
+        <module name="js-consumer-remittance" />
+        <module name="js-kafka-client" />
+        <module name="js-producer-remittance" />
+        <module name="js-sleuth-server" />
+        <module name="js-spring-zuul" />
+        <module name="js_deposit_provider" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="js-consumer-account" target="1.7" />
+      <module name="js-consumer-creditcard" target="1.7" />
+      <module name="js-consumer-denglu" target="1.6" />
+      <module name="js-consumer-financial" target="1.7" />
+      <module name="js-consumer-insurance" target="1.7" />
+      <module name="js-consumer-list" target="1.7" />
+      <module name="js-consumer-loans" target="1.7" />
+      <module name="js-consumer-manage" target="1.7" />
+      <module name="js-consumer-management" target="1.7" />
+      <module name="js-consumer-options" target="1.7" />
+      <module name="js-cosumer-fund" target="1.7" />
+      <module name="js-denglu-provider" target="8" />
+      <module name="js-producer-account" target="1.7" />
+      <module name="js-producer-creditcard" target="1.7" />
+      <module name="js-producer-financial" target="1.7" />
+      <module name="js-producer-fund" target="1.7" />
+      <module name="js-producer-insurance" target="1.7" />
+      <module name="js-producer-list" target="1.7" />
+      <module name="js-producer-loans" target="1.7" />
+      <module name="js-producer-manage" target="1.7" />
+      <module name="js-producer-management" target="1.7" />
+      <module name="js-producer-options" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
