@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/js-consumer-account" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-consumer-creditcard" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-consumer-denglu" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-consumer-deposit" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-consumer-financial" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-consumer-insurance" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-consumer-list" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-consumer-loans" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-consumer-manage" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-consumer-management" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-consumer-options" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-consumer-remittance" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-cosumer-fund" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-denglu-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-kafka-client" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-producer-account" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-producer-creditcard" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-producer-financial" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-producer-fund" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-producer-insurance" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-producer-list" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-producer-loans" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-producer-manage" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-producer-management" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-producer-options" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-producer-remittance" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-sleuth-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-spring-config-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-spring-eureka-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js-spring-zuul" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js_deposit_provider" charset="UTF-8" />
+  </component>
+</project>

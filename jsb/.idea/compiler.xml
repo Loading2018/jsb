@@ -12,9 +12,9 @@
         <module name="js-consumer-remittance" />
         <module name="js-kafka-client" />
         <module name="js-producer-remittance" />
+        <module name="js-provider-deposit" />
         <module name="js-sleuth-server" />
         <module name="js-spring-zuul" />
-        <module name="js_deposit_provider" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

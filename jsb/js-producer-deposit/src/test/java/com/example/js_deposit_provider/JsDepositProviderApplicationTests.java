@@ -1,10 +1,6 @@
 package com.example.js_deposit_provider;
 
-import com.example.js_deposit_provider.dao.DepositFixationDao;
-import com.example.js_deposit_provider.entity.DepositFixation;
-import com.example.js_deposit_provider.util.DateUtil;
-import com.example.js_deposit_provider.util.IndustrySMS;
-import com.example.js_deposit_provider.util.OrderNumberUtil;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
