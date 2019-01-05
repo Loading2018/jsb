@@ -17,17 +17,25 @@
     </resultMap>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="BatchMap" parameterType="int">
+    <select id="queryById" resultMap="BatchMap">
         select
-          batch_id, batch_name, batch_number, batch_site, batch_price, batch_phone, batch_payname, batch_paynumber, batch_payuserid, batch_time
-        from batch
+          batch_id, batch_name, batch_number, batch_site, batch_price, batch_phone, batch_payname, batch_paynumber, batch_payuserid, batch_time, batch_currency
+        from jsbank.batch
         where batch_id = #{batchId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BatchMap">
+        select
+          batch_id, batch_name, batch_number, batch_site, batch_price, batch_phone, batch_payname, batch_paynumber, batch_payuserid, batch_time, batch_currency
+        from jsbank.batch
+        limit #{offset}, #{limit}
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BatchMap">
         select
-          batch_id, batch_number, batch_site, batch_price, batch_paynumber, batch_payuserid, batch_time
+        batch_id, batch_number, batch_site, batch_price, batch_paynumber, batch_payuserid, batch_time
         from batch
         <where>
 
@@ -47,14 +55,14 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="batchId" useGeneratedKeys="true" parameterType="com.cloud.jsproducerremittance.entity.Batch">
-        insert into batch(batch_name, batch_number, batch_site, batch_price, batch_phone, batch_payname, batch_paynumber, batch_payuserid, batch_time, batch_currency)
+    <insert id="insert" keyProperty="batchId" useGeneratedKeys="true">
+        insert into jsbank.batch(batch_name, batch_number, batch_site, batch_price, batch_phone, batch_payname, batch_paynumber, batch_payuserid, batch_time, batch_currency)
         values (#{batchName}, #{batchNumber}, #{batchSite}, #{batchPrice}, #{batchPhone}, #{batchPayname}, #{batchPaynumber}, #{batchPayuserid}, #{batchTime}, #{batchCurrency})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update js_bank_account.batch
+        update jsbank.batch
         <set>
             <if test="batchName != null and batchName != ''">
                 batch_name = #{batchName},
@@ -92,7 +100,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from js_bank_account.batch where batch_id = #{batchId}
+        delete from jsbank.batch where batch_id = #{batchId}
     </delete>
 
 </mapper>

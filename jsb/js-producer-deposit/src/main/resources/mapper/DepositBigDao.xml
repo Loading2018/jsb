@@ -13,38 +13,30 @@
         <result property="depositBiglong" column="deposit_bigLong" jdbcType="INTEGER"/>
         <result property="depositBigouttime" column="deposit_bigOutTime" jdbcType="TIMESTAMP"/>
         <result property="depositBiguserid" column="deposit_bigUserId" jdbcType="INTEGER"/>
-        <result property="depositBigState" column="deposit_bigState" jdbcType="INTEGER"/>
+        <result property="depositBigstate" column="deposit_bigState" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="DepositBigMap">
         select
-          deposit_bigId,  deposit_bigCardId, deposit_bigMoney, deposit_biglv,  deposit_bigLong
-        from deposit_big
+          deposit_bigId, deposit_bigNumber, deposit_bigCardId, deposit_bigMoney, deposit_biglv, deposit_bigBusType, deposit_bigInTime, deposit_bigLong, deposit_bigOutTime, deposit_bigUserId, deposit_bigState
+        from jsbank.deposit_big
         where deposit_bigId = #{depositBigid}
     </select>
-    <select id="getAllNow" resultMap="DepositBigMap">
-        select  deposit_bigId,  deposit_bigCardId, deposit_bigMoney, deposit_biglv
-        from deposit_big
-        where deposit_bigOutTime = #{today}
-    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="DepositBigMap">
         select
-          deposit_bigId, deposit_bigNumber, deposit_bigCardId, deposit_bigMoney, deposit_biglv, deposit_bigBusType, deposit_bigInTime, deposit_bigLong, deposit_bigOutTime, deposit_bigUserId
-        from js-deposit.deposit_big
+          deposit_bigId, deposit_bigNumber, deposit_bigCardId, deposit_bigMoney, deposit_biglv, deposit_bigBusType, deposit_bigInTime, deposit_bigLong, deposit_bigOutTime, deposit_bigUserId, deposit_bigState
+        from jsbank.deposit_big
         limit #{offset}, #{limit}
     </select>
-    <select id="getAllById" resultMap="DepositBigMap">
-        select deposit_bigId, deposit_bigNumber, deposit_bigCardId, deposit_bigMoney, deposit_biglv, deposit_bigInTime, deposit_bigOutTime
-          from deposit_big
-          where deposit_bigUserId = #{userid}
-    </select>
+
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="DepositBigMap">
         select
-          deposit_bigId, deposit_bigNumber, deposit_bigCardId, deposit_bigMoney, deposit_biglv, deposit_bigBusType, deposit_bigInTime, deposit_bigLong, deposit_bigOutTime, deposit_bigUserId
-        from js-deposit.deposit_big
+          deposit_bigId, deposit_bigNumber, deposit_bigCardId, deposit_bigMoney, deposit_biglv, deposit_bigBusType, deposit_bigInTime, deposit_bigLong, deposit_bigOutTime, deposit_bigUserId, deposit_bigState
+        from jsbank.deposit_big
         <where>
             <if test="depositBigid != null">
                 and deposit_bigId = #{depositBigid}
@@ -67,7 +59,7 @@
             <if test="depositBigintime != null">
                 and deposit_bigInTime = #{depositBigintime}
             </if>
-            <if test="depositBiglong != null and depositBiglong != ''">
+            <if test="depositBiglong != null">
                 and deposit_bigLong = #{depositBiglong}
             </if>
             <if test="depositBigouttime != null">
@@ -76,22 +68,21 @@
             <if test="depositBiguserid != null">
                 and deposit_bigUserId = #{depositBiguserid}
             </if>
+            <if test="depositBigstate != null">
+                and deposit_bigState = #{depositBigstate}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="depositBigid" useGeneratedKeys="true">
-        insert into deposit_big(deposit_bigNumber, deposit_bigCardId, deposit_bigMoney, deposit_biglv, deposit_bigBusType, deposit_bigInTime, deposit_bigLong, deposit_bigOutTime, deposit_bigUserId,deposit_bigState)
-        values (#{depositBignumber}, #{depositBigcardid}, #{depositBigmoney}, #{depositBiglv}, #{depositBigbustype}, #{depositBigintime}, #{depositBiglong}, #{depositBigouttime}, #{depositBiguserid},0)
+        insert into jsbank.deposit_big(deposit_bigNumber, deposit_bigCardId, deposit_bigMoney, deposit_biglv, deposit_bigBusType, deposit_bigInTime, deposit_bigLong, deposit_bigOutTime, deposit_bigUserId, deposit_bigState)
+        values (#{depositBignumber}, #{depositBigcardid}, #{depositBigmoney}, #{depositBiglv}, #{depositBigbustype}, #{depositBigintime}, #{depositBiglong}, #{depositBigouttime}, #{depositBiguserid}, #{depositBigstate})
     </insert>
-    <update id="changestate">
-        update deposit_big
-        set deposit_bigState = 1
-        where deposit_bigId = #{informid}
-    </update>
+
     <!--通过主键修改数据-->
     <update id="update">
-        update js-deposit.deposit_big
+        update jsbank.deposit_big
         <set>
             <if test="depositBignumber != null and depositBignumber != ''">
                 deposit_bigNumber = #{depositBignumber},
@@ -111,7 +102,7 @@
             <if test="depositBigintime != null">
                 deposit_bigInTime = #{depositBigintime},
             </if>
-            <if test="depositBiglong != null and depositBiglong != ''">
+            <if test="depositBiglong != null">
                 deposit_bigLong = #{depositBiglong},
             </if>
             <if test="depositBigouttime != null">
@@ -120,17 +111,56 @@
             <if test="depositBiguserid != null">
                 deposit_bigUserId = #{depositBiguserid},
             </if>
+            <if test="depositBigstate != null">
+                deposit_bigState = #{depositBigstate},
+            </if>
         </set>
         where deposit_bigId = #{depositBigid}
     </update>
-    <update id="updatemoney">
-        update deposit_big
-        set deposit_bigMoney = deposit_bigMoney - #{money}
-        where deposit_bigId = #{informid}
-    </update>
+
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from js-deposit.deposit_big where deposit_bigId = #{depositBigid}
+        delete from jsbank.deposit_big where deposit_bigId = #{depositBigid}
     </delete>
 
+    <!--根据订单ID取款-->
+    <update id="getBigWithdrawal">
+        update deposit_big
+        set deposit_bigMoney = deposit_bigMoney - #{bigmoney}
+        where deposit_bigId = #{bigid}
+    </update>
+
+    <!--根据用户ID查询定期存款订单-->
+    <select id="getAllBigInfoByID" resultMap="DepositBigMap">
+        select deposit_bigId,deposit_bigNumber,deposit_bigBusType, deposit_bigCardId, deposit_bigMoney, deposit_biglv, deposit_bigInTime, deposit_bigOutTime,deposit_bigState
+          from deposit_big
+          where deposit_bigUserId = #{userid}
+    </select>
+
+    <!--根据订单ID查询订单余额-->
+    <select id="getBigRemainMoney" resultMap="DepositBigMap">
+        select deposit_bigCardId, deposit_bigMoney
+          from deposit_big
+          where deposit_bigId = #{bigOrderid}
+    </select>
+
+    <!--根据订单ID修改订单状态-->
+    <update id="changOrderState">
+        update deposit_big
+        set deposit_bigState = 1
+        where deposit_bigId = #{informid}
+    </update>
+
+    <!--根据日期获取订单信息-->
+    <select id="getAllBigInfoByDay" resultMap="DepositBigMap">
+        select  deposit_bigId,  deposit_bigCardId, deposit_bigMoney, deposit_biglv
+        from deposit_big
+        where deposit_bigOutTime = #{today}
+    </select>
+    <!--根据订单ID修改状态-->
+    <update id="updateOrderState">
+        update deposit_big
+        set deposit_bigState=1
+        where deposit_bigId = #{businessId}
+    </update>
 </mapper>

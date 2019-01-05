@@ -8,10 +8,15 @@ spring:
   sleuth:
     sampler:
       percentage: 1.0
+  thymeleaf:
+    prefix: classpath:/public/
+    suffix: .html
+  mvc:
+    static-path-pattern: /static/**
 eureka:
   client:
     service-url:
-      defaultZone: http://root:123456@47.94.235.82:7776/eureka/
+      defaultZone: http://39.105.144.187:6001/eureka/
 feign:
   hystrix:
     enabled: true

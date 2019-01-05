@@ -14,8 +14,8 @@
     <!--查询单个-->
     <select id="queryById" resultMap="DepositBusinessMap">
         select
-         deposit_businessName,deposit_businessRate
-        from deposit_business
+          deposit_businessId, deposit_businessName, deposit_businessMoney, deposit_businessRate, deposit_businessType, deposit_businessLong
+        from jsbank.deposit_business
         where deposit_businessId = #{depositBusinessid}
     </select>
 
@@ -23,7 +23,7 @@
     <select id="queryAllByLimit" resultMap="DepositBusinessMap">
         select
           deposit_businessId, deposit_businessName, deposit_businessMoney, deposit_businessRate, deposit_businessType, deposit_businessLong
-        from js-deposit.deposit_business
+        from jsbank.deposit_business
         limit #{offset}, #{limit}
     </select>
 
@@ -31,7 +31,7 @@
     <select id="queryAll" resultMap="DepositBusinessMap">
         select
           deposit_businessId, deposit_businessName, deposit_businessMoney, deposit_businessRate, deposit_businessType, deposit_businessLong
-        from js-deposit.deposit_business
+        from jsbank.deposit_business
         <where>
             <if test="depositBusinessid != null">
                 and deposit_businessId = #{depositBusinessid}
@@ -56,13 +56,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="depositBusinessid" useGeneratedKeys="true">
-        insert into js-deposit.deposit_business(deposit_businessName, deposit_businessMoney, deposit_businessRate, deposit_businessType, deposit_businessLong)
+        insert into jsbank.deposit_business(deposit_businessName, deposit_businessMoney, deposit_businessRate, deposit_businessType, deposit_businessLong)
         values (#{depositBusinessname}, #{depositBusinessmoney}, #{depositBusinessrate}, #{depositBusinesstype}, #{depositBusinesslong})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update js-deposit.deposit_business
+        update jsbank.deposit_business
         <set>
             <if test="depositBusinessname != null and depositBusinessname != ''">
                 deposit_businessName = #{depositBusinessname},
@@ -85,11 +85,26 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from js-deposit.deposit_business where deposit_businessId = #{depositBusinessid}
+        delete from jsbank.deposit_business where deposit_businessId = #{depositBusinessid}
     </delete>
-    <select id="getAll" resultMap="DepositBusinessMap">
+    <!--查询全部存款业务数据-->
+    <select id="getAllBussinessInfo" resultMap="DepositBusinessMap">
         select deposit_businessId, deposit_businessName, deposit_businessMoney, deposit_businessRate, deposit_businessLong,deposit_businessType
         from deposit_business
     </select>
-
+    <!--根据业务ID查业务信息-->
+    <select id="getInfoByDepositBusinessID" resultMap="DepositBusinessMap">
+        select deposit_businessId, deposit_businessName, deposit_businessMoney, deposit_businessRate, deposit_businessLong,deposit_businessType
+        from deposit_business where deposit_businessId=#{deposit_businessId}
+    </select>
+    <!--根据业务ID查业务利率-->
+    <select id="getLvByDepositBusinessID" resultMap="DepositBusinessMap">
+        select deposit_businessRate
+        from deposit_business where deposit_businessId=#{deposit_businessId}
+    </select>
+    <!--根据业务ID修改业务利率-->
+    <update id="updateLvByDepositBusinessID">
+        update deposit_business set deposit_businessRate=#{deposit_business}
+        where deposit_businessId=#{deposit_businessId}
+    </update>
 </mapper>

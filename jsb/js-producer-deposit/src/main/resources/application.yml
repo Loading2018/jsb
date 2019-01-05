@@ -7,7 +7,7 @@ eureka:
 spring:
   datasource:
     # 使用druid数据源
-    url: jdbc:mysql://localhost:3306/db
+    url: jdbc:mysql://localhost:3306/jsbank
     username: root
     password: Zxc123..
     type: com.alibaba.druid.pool.DruidDataSource
@@ -46,5 +46,11 @@ spring:
 #    listener:
 #        simple:
 #          prefetch: 1
-#mybatis:
-#  mapperLocations: classpath:mapper/*.xml
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

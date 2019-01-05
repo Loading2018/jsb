@@ -5,7 +5,7 @@
     <resultMap type="com.example.js_deposit_provider.entity.DepositInform" id="DepositInformMap">
         <result property="depositInformid" column="deposit_informId" jdbcType="INTEGER"/>
         <result property="depositInformnumber" column="deposit_informNumber" jdbcType="VARCHAR"/>
-        <result property="depositInformmoney" column="deposit_informMoney" jdbcType="DOUBLE"/>
+        <result property="depositInformmoney" column="deposit_informMoney" jdbcType="OTHER"/>
         <result property="depositInformstate" column="deposit_informState" jdbcType="VARCHAR"/>
         <result property="depositInformcardid" column="deposit_informCardId" jdbcType="VARCHAR"/>
         <result property="depositInformuserid" column="deposit_informUserId" jdbcType="VARCHAR"/>
@@ -17,19 +17,15 @@
     <select id="queryById" resultMap="DepositInformMap">
         select
           deposit_informId, deposit_informNumber, deposit_informMoney, deposit_informState, deposit_informCardId, deposit_informUserId, deposit_informType, deposit_informTime
-        from deposit_inform
+        from jsbank.deposit_inform
         where deposit_informId = #{depositInformid}
     </select>
-    <select id="selMoney" resultMap="DepositInformMap"  parameterType="int">
-        select deposit_informMoney,deposit_informCardId,deposit_informType,deposit_informTime
-        from deposit_inform
-        where deposit_informId = #{depositInformid}
-    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="DepositInformMap">
         select
           deposit_informId, deposit_informNumber, deposit_informMoney, deposit_informState, deposit_informCardId, deposit_informUserId, deposit_informType, deposit_informTime
-        from deposit_inform
+        from jsbank.deposit_inform
         limit #{offset}, #{limit}
     </select>
 
@@ -37,7 +33,7 @@
     <select id="queryAll" resultMap="DepositInformMap">
         select
           deposit_informId, deposit_informNumber, deposit_informMoney, deposit_informState, deposit_informCardId, deposit_informUserId, deposit_informType, deposit_informTime
-        from deposit_inform
+        from jsbank.deposit_inform
         <where>
             <if test="depositInformid != null">
                 and deposit_informId = #{depositInformid}
@@ -68,13 +64,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="depositInformid" useGeneratedKeys="true">
-        insert into deposit_inform(deposit_informNumber, deposit_informMoney, deposit_informState, deposit_informCardId, deposit_informUserId, deposit_informType,deposit_informTime)
-        values (#{depositInformnumber}, #{depositInformmoney}, #{depositInformstate}, #{depositInformcardid}, #{depositInformuserid}, #{depositInformtype},#{depositInformtime})
+        insert into jsbank.deposit_inform(deposit_informNumber, deposit_informMoney, deposit_informState, deposit_informCardId, deposit_informUserId, deposit_informType, deposit_informTime)
+        values (#{depositInformnumber}, #{depositInformmoney}, #{depositInformstate}, #{depositInformcardid}, #{depositInformuserid}, #{depositInformtype}, #{depositInformtime})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update deposit_inform
+        update jsbank.deposit_inform
         <set>
             <if test="depositInformnumber != null and depositInformnumber != ''">
                 deposit_informNumber = #{depositInformnumber},
@@ -103,16 +99,33 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from deposit_inform where deposit_informId = #{depositInformid}
+        delete from jsbank.deposit_inform where deposit_informId = #{depositInformid}
     </delete>
-    <select id="getInfomByUserid" resultMap="DepositInformMap" parameterType="String">
-        select  deposit_informNumber,deposit_informMoney,deposit_informType,deposit_informTime
+
+    <!--通过用户id查看用户的所有存款信息-->
+    <select id="getDepositInfoByUserid" resultMap="DepositInformMap" parameterType="String">
+        select  deposit_informId,deposit_informNumber,deposit_informMoney,deposit_informType,deposit_informTime,deposit_informState,deposit_informCardId
         from  deposit_inform
         where  deposit_informUserId = #{userid}
     </select>
-    <update id="withdrawal" parameterType="int">
+
+    <!--根据通知存款id查询该id的订单金额-->
+    <select id="getOrderMoney" resultMap="DepositInformMap" parameterType="int">
+        select deposit_informMoney,deposit_informCardId,deposit_informType,deposit_informTime
+        from deposit_inform
+        where deposit_informId = #{depositInformid}
+    </select>
+
+    <!--根据订单id进行取款操作-->
+    <update id="updateWithdrawalByOrderID">
         update deposit_inform
         set deposit_informMoney =deposit_informMoney - #{informMoney}
         where deposit_informId = #{infromid}
+    </update>
+    <!--根据订单ID修改状态-->
+    <update id="updateOrderState">
+        update deposit_inform
+        set deposit_informState=1
+        where deposit_informId = #{businessId}
     </update>
 </mapper>
