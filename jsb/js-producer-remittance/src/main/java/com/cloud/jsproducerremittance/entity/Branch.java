@@ -1,115 +1,82 @@
 package com.cloud.jsproducerremittance.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
  * (Branch)实体类
  *
  * @author makejava
- * @since 2018-12-24 16:20:22
+ * @since 2018-11-10 08:52:16
  */
+@Entity
+@Table(name = "BRANCH")
 public class Branch implements Serializable {
-    private static final long serialVersionUID = -24574103226661531L;
+
     //网点ID
-    private Integer branchId;
+    @Id
+    @GeneratedValue
+    private Integer branchid;
     //网点名称
-    private String branchName;
+    private String branchname;
     //网点地址
-    private String branchSite;
-    //网点电话
-    private String branchPhone;
-    //1 3 5 7受理业务的时间段  {"one":"09:30 - 12:00","two":"14:30 - 16:30"}
-    private String branchData;
-    //2 4 6受理业务的时间段  {"one":"09:00 - 10:30","two":"15:30 - 17:00"}
-    private String branchDatatwo;
-    //网点可办理业务1:预约人民币大额提现
-    private Integer branchBusinessone;
-    //网点可办理业务1:外币现金取款
-    private Integer branchBusinesstwo;
+    private String branchsite;
+    //受理业务的时间段  {"one":"00:00 - 11:11","two":"14:30 - 15:30"}
+    private String branchdata;
     //经度
-    private String branchLongitude;
+    private String branchlongitude;
     //维度
-    private String branchDimensionality;
+    private String branchdimensionality;
 
 
-    public Integer getBranchId() {
-        return branchId;
+    public Integer getBranchid() {
+        return branchid;
     }
 
-    public void setBranchId(Integer branchId) {
-        this.branchId = branchId;
+    public void setBranchid(Integer branchid) {
+        this.branchid = branchid;
     }
 
-    public String getBranchName() {
-        return branchName;
+    public String getBranchname() {
+        return branchname;
     }
 
-    public void setBranchName(String branchName) {
-        this.branchName = branchName;
+    public void setBranchname(String branchname) {
+        this.branchname = branchname;
     }
 
-    public String getBranchSite() {
-        return branchSite;
+    public String getBranchsite() {
+        return branchsite;
     }
 
-    public void setBranchSite(String branchSite) {
-        this.branchSite = branchSite;
+    public void setBranchsite(String branchsite) {
+        this.branchsite = branchsite;
     }
 
-    public String getBranchPhone() {
-        return branchPhone;
+    public String getBranchdata() {
+        return branchdata;
     }
 
-    public void setBranchPhone(String branchPhone) {
-        this.branchPhone = branchPhone;
+    public void setBranchdata(String branchdata) {
+        this.branchdata = branchdata;
     }
 
-    public String getBranchData() {
-        return branchData;
+    public String getBranchlongitude() {
+        return branchlongitude;
     }
 
-    public void setBranchData(String branchData) {
-        this.branchData = branchData;
+    public void setBranchlongitude(String branchlongitude) {
+        this.branchlongitude = branchlongitude;
     }
 
-    public String getBranchDatatwo() {
-        return branchDatatwo;
+    public String getBranchdimensionality() {
+        return branchdimensionality;
     }
 
-    public void setBranchDatatwo(String branchDatatwo) {
-        this.branchDatatwo = branchDatatwo;
+    public void setBranchdimensionality(String branchdimensionality) {
+        this.branchdimensionality = branchdimensionality;
     }
-
-    public Integer getBranchBusinessone() {
-        return branchBusinessone;
-    }
-
-    public void setBranchBusinessone(Integer branchBusinessone) {
-        this.branchBusinessone = branchBusinessone;
-    }
-
-    public Integer getBranchBusinesstwo() {
-        return branchBusinesstwo;
-    }
-
-    public void setBranchBusinesstwo(Integer branchBusinesstwo) {
-        this.branchBusinesstwo = branchBusinesstwo;
-    }
-
-    public String getBranchLongitude() {
-        return branchLongitude;
-    }
-
-    public void setBranchLongitude(String branchLongitude) {
-        this.branchLongitude = branchLongitude;
-    }
-
-    public String getBranchDimensionality() {
-        return branchDimensionality;
-    }
-
-    public void setBranchDimensionality(String branchDimensionality) {
-        this.branchDimensionality = branchDimensionality;
-    }
-
 }

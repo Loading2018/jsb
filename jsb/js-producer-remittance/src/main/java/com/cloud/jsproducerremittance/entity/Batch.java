@@ -1,125 +1,141 @@
 package com.cloud.jsproducerremittance.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
  * (Batch)实体类
  *
  * @author makejava
- * @since 2018-12-24 16:19:46
+ * @since 2018-11-10 08:51:40
  */
+@Entity
+@Table(name = "BATCH")
 public class Batch implements Serializable {
-    private static final long serialVersionUID = 737776001575639618L;
+
     //批量汇款ID
-    private Integer batchId;
+    @Id
+    @GeneratedValue
+    private Integer batchid;
     //收款人姓名
-    private String batchName;
+    private String batchname = "";
     //收款人卡号
-    private String batchNumber;
+    private String batchnumber;
     //收款人地区
-    private String batchSite;
+    private String batchsite;
     //汇款金额
-    private String batchPrice;
+    private String batchprice;
     //短信通知电话
-    private String batchPhone;
+    private String batchphone;
     //付款人姓名
-    private String batchPayname;
+    private String batchpayname;
     //付款卡号
-    private String batchPaynumber;
+    private String batchpaynumber;
     //付款人ID
-    private Integer batchPayuserid;
+    private Integer batchpayuserid;
     //当前交易时间
-    private String batchTime;
+    private String batchtime;
     //币种
-    private String batchCurrency;
+    private String batchcurrency;
+    //短信留言
+    private String smsmessage;
 
-
-    public Integer getBatchId() {
-        return batchId;
+    public Integer getBatchid() {
+        return batchid;
     }
 
-    public void setBatchId(Integer batchId) {
-        this.batchId = batchId;
+    public void setBatchid(Integer batchid) {
+        this.batchid = batchid;
     }
 
-    public String getBatchName() {
-        return batchName;
+    public String getBatchname() {
+        return batchname;
     }
 
-    public void setBatchName(String batchName) {
-        this.batchName = batchName;
+    public void setBatchname(String batchname) {
+        this.batchname = batchname;
     }
 
-    public String getBatchNumber() {
-        return batchNumber;
+    public String getBatchnumber() {
+        return batchnumber;
     }
 
-    public void setBatchNumber(String batchNumber) {
-        this.batchNumber = batchNumber;
+    public void setBatchnumber(String batchnumber) {
+        this.batchnumber = batchnumber;
     }
 
-    public String getBatchSite() {
-        return batchSite;
+    public String getBatchsite() {
+        return batchsite;
     }
 
-    public void setBatchSite(String batchSite) {
-        this.batchSite = batchSite;
+    public void setBatchsite(String batchsite) {
+        this.batchsite = batchsite;
     }
 
-    public String getBatchPrice() {
-        return batchPrice;
+    public String getBatchprice() {
+        return batchprice;
     }
 
-    public void setBatchPrice(String batchPrice) {
-        this.batchPrice = batchPrice;
+    public void setBatchprice(String batchprice) {
+        this.batchprice = batchprice;
     }
 
-    public String getBatchPhone() {
-        return batchPhone;
+    public String getBatchphone() {
+        return batchphone;
     }
 
-    public void setBatchPhone(String batchPhone) {
-        this.batchPhone = batchPhone;
+    public void setBatchphone(String batchphone) {
+        this.batchphone = batchphone;
     }
 
-    public String getBatchPayname() {
-        return batchPayname;
+    public String getBatchpayname() {
+        return batchpayname;
     }
 
-    public void setBatchPayname(String batchPayname) {
-        this.batchPayname = batchPayname;
+    public void setBatchpayname(String batchpayname) {
+        this.batchpayname = batchpayname;
     }
 
-    public String getBatchPaynumber() {
-        return batchPaynumber;
+    public String getBatchpaynumber() {
+        return batchpaynumber;
     }
 
-    public void setBatchPaynumber(String batchPaynumber) {
-        this.batchPaynumber = batchPaynumber;
+    public void setBatchpaynumber(String batchpaynumber) {
+        this.batchpaynumber = batchpaynumber;
     }
 
-    public Integer getBatchPayuserid() {
-        return batchPayuserid;
+    public Integer getBatchpayuserid() {
+        return batchpayuserid;
     }
 
-    public void setBatchPayuserid(Integer batchPayuserid) {
-        this.batchPayuserid = batchPayuserid;
+    public void setBatchpayuserid(Integer batchpayuserid) {
+        this.batchpayuserid = batchpayuserid;
     }
 
-    public String getBatchTime() {
-        return batchTime;
+    public String getBatchtime() {
+        return batchtime;
     }
 
-    public void setBatchTime(String batchTime) {
-        this.batchTime = batchTime;
+    public void setBatchtime(String batchtime) {
+        this.batchtime = batchtime;
     }
 
-    public String getBatchCurrency() {
-        return batchCurrency;
+    public String getBatchcurrency() {
+        return batchcurrency;
     }
 
-    public void setBatchCurrency(String batchCurrency) {
-        this.batchCurrency = batchCurrency;
+    public void setBatchcurrency(String batchcurrency) {
+        this.batchcurrency = batchcurrency;
     }
 
+    public String getSmsmessage() {
+        return smsmessage;
+    }
+
+    public void setSmsmessage(String smsmessage) {
+        this.smsmessage = smsmessage;
+    }
 }
